@@ -22,17 +22,21 @@
     var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="念念不忘必有回响">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Susin3x&#39;s Blog">
-<meta property="og:url" content="https://susin3x.cn/archives/2022/02/index.html">
+  <meta name="description" content="主要学习了面向对象的封装性，封装性可以通过权限修饰符来体现，构造器可创建对象或初始化对象的结构，this可理解为当前对象或当前正在创建的对象，package和import能更好管理和使用包中的类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaSE基础学习day10">
+<meta property="og:url" content="https://susin3x.cn/posts/b0c21ab7.html">
 <meta property="og:site_name" content="Susin3x&#39;s Blog">
-<meta property="og:description" content="念念不忘必有回响">
+<meta property="og:description" content="主要学习了面向对象的封装性，封装性可以通过权限修饰符来体现，构造器可创建对象或初始化对象的结构，this可理解为当前对象或当前正在创建的对象，package和import能更好管理和使用包中的类。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-06T14:51:20.000Z">
+<meta property="article:modified_time" content="2022-07-10T14:37:35.700Z">
 <meta property="article:author" content="susin3x">
+<meta property="article:tag" content="javaSE">
+<meta property="article:tag" content="面向对象">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://susin3x.cn/archives/2022/02/">
+<link rel="canonical" href="https://susin3x.cn/posts/b0c21ab7.html">
 
 
 <script id="page-configurations">
@@ -40,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Susin3x's Blog</title>
+  <title>javaSE基础学习day10 | Susin3x's Blog</title>
   
 
 
@@ -193,150 +197,322 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 11 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/b0c21ab7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaSE基础学习day10
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-06 22:51:20" itemprop="dateCreated datePublished" datetime="2022-02-06T22:51:20+08:00">2022-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-10 22:37:35" itemprop="dateModified" datetime="2022-07-10T22:37:35+08:00">2022-07-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSE/" itemprop="url" rel="index"><span itemprop="name">javaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>783</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">主要学习了面向对象的封装性，封装性可以通过权限修饰符来体现，构造器可创建对象或初始化对象的结构，this可理解为当前对象或当前正在创建的对象，package和import能更好管理和使用包中的类。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <h2 id="Eclipse的快捷键使用"><a href="#Eclipse的快捷键使用" class="headerlink" title="Eclipse的快捷键使用"></a>Eclipse的快捷键使用</h2><table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">alt + /</td>
+<td align="center">补全代码的声明</td>
+</tr>
+<tr>
+<td align="center">ctrl + 1</td>
+<td align="center">快速修复</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + o</td>
+<td align="center">批量导包</td>
+</tr>
+<tr>
+<td align="center">ctrl + /</td>
+<td align="center">使用单行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + /</td>
+<td align="center">使用多行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + \</td>
+<td align="center">取消多行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + alt + down 或<br>ctrl + alt + up</td>
+<td align="center">复制指定行的代码</td>
+</tr>
+<tr>
+<td align="center">ctrl + d</td>
+<td align="center">删除指定行的代码</td>
+</tr>
+<tr>
+<td align="center">alt + up 或<br />alt + down</td>
+<td align="center">上下移动代码</td>
+</tr>
+<tr>
+<td align="center">shift + enter</td>
+<td align="center">切换到下一行代码空位</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + enter</td>
+<td align="center">切换到上一行代码空位</td>
+</tr>
+<tr>
+<td align="center">ctrl + 选中指定的结构<br />ctrl + shift + t</td>
+<td align="center">查看源码</td>
+</tr>
+<tr>
+<td align="center">alt + left 或<br />鼠标后侧键</td>
+<td align="center">退回到前一个编辑的页面</td>
+</tr>
+<tr>
+<td align="center">alt + right或<br />鼠标前侧键</td>
+<td align="center">进入到下一个编辑的页面（针对于上面那条来说）</td>
+</tr>
+<tr>
+<td align="center">ctrl + t</td>
+<td align="center">光标选中指定的类，查看继承树结构</td>
+</tr>
+<tr>
+<td align="center">ctrl + c</td>
+<td align="center">复制代码</td>
+</tr>
+<tr>
+<td align="center">ctrl + z</td>
+<td align="center">撤销</td>
+</tr>
+<tr>
+<td align="center">ctrl + y</td>
+<td align="center">反撤销</td>
+</tr>
+<tr>
+<td align="center">ctrl + x</td>
+<td align="center">剪切</td>
+</tr>
+<tr>
+<td align="center">ctrl + v</td>
+<td align="center">粘贴</td>
+</tr>
+<tr>
+<td align="center">ctrl + s</td>
+<td align="center">保存</td>
+</tr>
+<tr>
+<td align="center">ctrl + a</td>
+<td align="center">全选</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + f<br />(和繁简切换冲突，我已经自定义成 shift + f)</td>
+<td align="center">格式化代码</td>
+</tr>
+<tr>
+<td align="center">tab</td>
+<td align="center">选中数行，整体往后移动</td>
+</tr>
+<tr>
+<td align="center">shift + tab</td>
+<td align="center">选中数行，整体往前移动</td>
+</tr>
+<tr>
+<td align="center">ctrl + o</td>
+<td align="center">在当前类中，显示类结构，并支持搜索指定的方法、属性等</td>
+</tr>
+<tr>
+<td align="center">alt  + shift + r</td>
+<td align="center">批量修改指定的变量名、方法名、类名等</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + x</td>
+<td align="center"><font color = red>选中</font>的结构大小写切换（变成大写）</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + y</td>
+<td align="center"><font color = red>选中</font>的结构大小写切换（变成小写）</td>
+</tr>
+<tr>
+<td align="center">alt + shift + s</td>
+<td align="center">调出生成getter/setter/构造器等结构</td>
+</tr>
+<tr>
+<td align="center">alt + enter</td>
+<td align="center">显示当前选择资源（工程 or  文件）的属性</td>
+</tr>
+<tr>
+<td align="center">ctrl + k</td>
+<td align="center">快速查找（参考选中的Word快速定位到下一个）</td>
+</tr>
+<tr>
+<td align="center">ctrl + w</td>
+<td align="center">关闭当前窗口</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + w</td>
+<td align="center">关闭所有窗口</td>
+</tr>
+<tr>
+<td align="center">ctrl + alt + g</td>
+<td align="center">查看指定的结构使用过的地方</td>
+</tr>
+<tr>
+<td align="center">ctrl + f</td>
+<td align="center">查找与替换</td>
+</tr>
+<tr>
+<td align="center">ctrl + m</td>
+<td align="center">最大化当前的View</td>
+</tr>
+<tr>
+<td align="center">home</td>
+<td align="center">直接定位到当前行的首位</td>
+</tr>
+<tr>
+<td align="center">end</td>
+<td align="center">直接定位到当前行的末位</td>
+</tr>
+</tbody></table>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-02-06T22:51:20+08:00"
-              content="2022-02-06">
-          02-06
-        </time>
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/b0c21ab7.html" itemprop="url">
-            <span itemprop="name">javaSE基础学习day10</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-02-05T14:28:17+08:00"
-              content="2022-02-05">
-          02-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/d0059352.html" itemprop="url">
-            <span itemprop="name">javaSE基础学习day09</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-02-04T11:45:01+08:00"
-              content="2022-02-04">
-          02-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/a702a3c4.html" itemprop="url">
-            <span itemprop="name">javaSE基础学习day08</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-02-03T17:22:43+08:00"
-              content="2022-02-03">
-          02-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/37bdbe55.html" itemprop="url">
-            <span itemprop="name">javaSE基础学习day07</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-02-02T20:20:02+08:00"
-              content="2022-02-02">
-          02-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/40ba8ec3.html" itemprop="url">
-            <span itemprop="name">javaSE基础学习day06</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-02-01T20:19:58+08:00"
-              content="2022-02-01">
-          02-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/d9b3df79.html" itemprop="url">
-            <span itemprop="name">javaSE基础学习day05</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
-    </div>
   </div>
-  
-  
-  
+</div>
 
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/b0c21ab7.html" title="javaSE基础学习day10">https://susin3x.cn/posts/b0c21ab7.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javaSE/" rel="tag"><i class="fa fa-tag"></i> javaSE</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"><i class="fa fa-tag"></i> 面向对象</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d0059352.html" rel="prev" title="javaSE基础学习day09">
+      <i class="fa fa-chevron-left"></i> javaSE基础学习day09
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/36c70eb9.html" rel="next" title="在阿里云服务器上部署一个flask项目">
+      在阿里云服务器上部署一个flask项目 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -389,6 +565,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Eclipse%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Eclipse的快捷键使用</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -576,7 +753,7 @@
       quicklink({
         timeout : 3000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/archives/2022/02/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/b0c21ab7.html',]
       });
       });
   </script>

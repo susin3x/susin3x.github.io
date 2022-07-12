@@ -252,6 +252,182 @@
       </tags>
   </entry>
   <entry>
+    <title>javaSE基础学习day10</title>
+    <url>/posts/b0c21ab7.html</url>
+    <content><![CDATA[<h2 id="Eclipse的快捷键使用"><a href="#Eclipse的快捷键使用" class="headerlink" title="Eclipse的快捷键使用"></a>Eclipse的快捷键使用</h2><table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">alt + /</td>
+<td align="center">补全代码的声明</td>
+</tr>
+<tr>
+<td align="center">ctrl + 1</td>
+<td align="center">快速修复</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + o</td>
+<td align="center">批量导包</td>
+</tr>
+<tr>
+<td align="center">ctrl + /</td>
+<td align="center">使用单行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + /</td>
+<td align="center">使用多行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + \</td>
+<td align="center">取消多行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + alt + down 或<br>ctrl + alt + up</td>
+<td align="center">复制指定行的代码</td>
+</tr>
+<tr>
+<td align="center">ctrl + d</td>
+<td align="center">删除指定行的代码</td>
+</tr>
+<tr>
+<td align="center">alt + up 或<br />alt + down</td>
+<td align="center">上下移动代码</td>
+</tr>
+<tr>
+<td align="center">shift + enter</td>
+<td align="center">切换到下一行代码空位</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + enter</td>
+<td align="center">切换到上一行代码空位</td>
+</tr>
+<tr>
+<td align="center">ctrl + 选中指定的结构<br />ctrl + shift + t</td>
+<td align="center">查看源码</td>
+</tr>
+<tr>
+<td align="center">alt + left 或<br />鼠标后侧键</td>
+<td align="center">退回到前一个编辑的页面</td>
+</tr>
+<tr>
+<td align="center">alt + right或<br />鼠标前侧键</td>
+<td align="center">进入到下一个编辑的页面（针对于上面那条来说）</td>
+</tr>
+<tr>
+<td align="center">ctrl + t</td>
+<td align="center">光标选中指定的类，查看继承树结构</td>
+</tr>
+<tr>
+<td align="center">ctrl + c</td>
+<td align="center">复制代码</td>
+</tr>
+<tr>
+<td align="center">ctrl + z</td>
+<td align="center">撤销</td>
+</tr>
+<tr>
+<td align="center">ctrl + y</td>
+<td align="center">反撤销</td>
+</tr>
+<tr>
+<td align="center">ctrl + x</td>
+<td align="center">剪切</td>
+</tr>
+<tr>
+<td align="center">ctrl + v</td>
+<td align="center">粘贴</td>
+</tr>
+<tr>
+<td align="center">ctrl + s</td>
+<td align="center">保存</td>
+</tr>
+<tr>
+<td align="center">ctrl + a</td>
+<td align="center">全选</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + f<br />(和繁简切换冲突，我已经自定义成 shift + f)</td>
+<td align="center">格式化代码</td>
+</tr>
+<tr>
+<td align="center">tab</td>
+<td align="center">选中数行，整体往后移动</td>
+</tr>
+<tr>
+<td align="center">shift + tab</td>
+<td align="center">选中数行，整体往前移动</td>
+</tr>
+<tr>
+<td align="center">ctrl + o</td>
+<td align="center">在当前类中，显示类结构，并支持搜索指定的方法、属性等</td>
+</tr>
+<tr>
+<td align="center">alt  + shift + r</td>
+<td align="center">批量修改指定的变量名、方法名、类名等</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + x</td>
+<td align="center"><font color = red>选中</font>的结构大小写切换（变成大写）</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + y</td>
+<td align="center"><font color = red>选中</font>的结构大小写切换（变成小写）</td>
+</tr>
+<tr>
+<td align="center">alt + shift + s</td>
+<td align="center">调出生成getter/setter/构造器等结构</td>
+</tr>
+<tr>
+<td align="center">alt + enter</td>
+<td align="center">显示当前选择资源（工程 or  文件）的属性</td>
+</tr>
+<tr>
+<td align="center">ctrl + k</td>
+<td align="center">快速查找（参考选中的Word快速定位到下一个）</td>
+</tr>
+<tr>
+<td align="center">ctrl + w</td>
+<td align="center">关闭当前窗口</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + w</td>
+<td align="center">关闭所有窗口</td>
+</tr>
+<tr>
+<td align="center">ctrl + alt + g</td>
+<td align="center">查看指定的结构使用过的地方</td>
+</tr>
+<tr>
+<td align="center">ctrl + f</td>
+<td align="center">查找与替换</td>
+</tr>
+<tr>
+<td align="center">ctrl + m</td>
+<td align="center">最大化当前的View</td>
+</tr>
+<tr>
+<td align="center">home</td>
+<td align="center">直接定位到当前行的首位</td>
+</tr>
+<tr>
+<td align="center">end</td>
+<td align="center">直接定位到当前行的末位</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>javaSE</category>
+      </categories>
+      <tags>
+        <tag>javaSE</tag>
+        <tag>面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>javaSE基础学习day09</title>
     <url>/posts/d0059352.html</url>
     <content><![CDATA[<h2 id="面向对象的特征之一：封装与隐藏"><a href="#面向对象的特征之一：封装与隐藏" class="headerlink" title="面向对象的特征之一：封装与隐藏"></a>面向对象的特征之一：封装与隐藏</h2><p>程序设计追求“<font color  = red>高内聚低耦合</font>”，高内聚 (类的内部数据操作细节自己完成，不允许外部干涉)；低耦合(对外仅暴露少量的方法用于使用)。隐藏对象内部的复杂性，只对外公开简单的接口便于外界调用，从而提高系统的可扩展性和可维护性。把该隐藏的隐藏起来，该暴露的暴露出来，这就是封装性的设计思想。</p>
@@ -318,7 +494,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TriAngle</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> base;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> height;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TriAngle</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Triangle</span><span class="params">(<span class="type">double</span> b,<span class="type">double</span> h)</span>&#123;</span><br><span class="line">        base = b;</span><br><span class="line">        height = h;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNum</span><span class="params">(<span class="type">double</span> b,<span class="type">double</span> h)</span>&#123;</span><br><span class="line">        base = b;</span><br><span class="line">        height= h;  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getBase</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> base;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getHeight</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> height;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getArea</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> base * height * <span class="number">0.5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="属性赋值过程"><a href="#属性赋值过程" class="headerlink" title="属性赋值过程"></a>属性赋值过程</h3><p>赋值的先后顺序：① - ② - ③ - ④<br>赋值的位置：<br>① 默认初始化<br>② 显式初始化<br>③ 构造器中初始化<br>④ 通过“object.field”或“object.method”的方式赋值</p>
-<h3 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h3><p>JavaBean是一种Java语言写成的可重用组件，所谓javaBean，是指符合如下标准的Java类：<br>📌 类是公共的<br>📌 有一个<font color  =  red>无参的公共的</font>构造器<br>📌 有属性，且有对应的get、set方法<br>用户可以使用JavaBean将功能、处理、值、数据库访问和其他任何可以用Java代码创造的对象进行打包，并且其他的开发者可以通过内部的JSP页面、Servlet、其他JavaBean、applet程序或者应用来使用这些对象。用户可以认为JavaBean提供了一种随时随地的复制和粘贴的功能，而不用关心任何改变。</p>
+<h3 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h3><p>JavaBean是一种由Java语言写成的可重用组件，所谓javaBean，是指符合如下标准的Java类：<br>📌 类是公共的<br>📌 有一个<font color  =  red>公共的无参的</font>构造器<br>📌 有属性，且有对应的get、set方法<br>用户可以使用JavaBean将功能、处理、值、数据库访问和其他任何可以用Java代码创造的对象进行打包，并且其他的开发者可以通过内部的JSP页面、Servlet、其他JavaBean、applet程序或者应用来使用这些对象。用户可以认为JavaBean提供了一种随时随地的复制和粘贴的功能，而不用关心任何改变。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//示例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaBean</span> &#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> String name; <span class="comment">// 属性一般定义为private</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JavaBean</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> a)</span> &#123;</span><br><span class="line">        age = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String n)</span> &#123;</span><br><span class="line">        name = n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><p><img data-src="https://img.susin3x.cn/images/202207071903317.svg" alt="类图"></p>
