@@ -252,6 +252,27 @@
       </tags>
   </entry>
   <entry>
+    <title>javaSE基础学习day11</title>
+    <url>/posts/c7c52a21.html</url>
+    <content><![CDATA[<h2 id="面向对象的特征之二：继承性（inheritance）"><a href="#面向对象的特征之二：继承性（inheritance）" class="headerlink" title="面向对象的特征之二：继承性（inheritance）"></a>面向对象的特征之二：继承性（inheritance）</h2><p>定义Person类处理个人信息，定义Student类处理学生信息，Student类继承了Person类的所有属性和方法，并增加了school属性及get和set方法，Person类中的属性和方法在Student都可以使用。</p>
+<p><img data-src="https://img.susin3x.cn/images/202207181302645.svg" alt="继承性"></p>
+<p>多个<font color = red>子类(派生类，subclass)</font>中存在相同属性和行为时，将这些结构抽取到单独一个<font color = red>父类(超类、基类、superclass)</font>中，那么子类无需再定义这些属性和行为，只要继承父类即可。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//类继承的语法格式:</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Subclass</span> <span class="keyword">extends</span> <span class="title class_">SuperClass</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>继承性的作用：</strong><br>📌 减少了代码冗余，提高了代码的复用性；<br>📌 更有利于功能的扩展；<br>📌 让类与类之间产生了关系，提供了多态的前提。<br> ❗ 注意：不要仅为了获取其他类中某个功能而去继承</p>
+<p><strong>继承性的体现：</strong><br>📌 一旦子类继承父类以后，子类中就获取了父类中声明的<font color = red>所有的属性和方法</font>。<br>📌 在子类中可以使用父类中定义的方法和属性，也可以<font color = red>创建新的属性和方法</font>，实现功能的拓展。<br>📌 在java 中继承的关键字用的是“extends”，即<font color = red>子类不是父类的子集，而是对父类的“扩展”</font>。</p>
+<p><strong>关于继承的规则：</strong>子类不能直接访问父类中私有的(private)的属性和方法。父类中私有的属性和方法，仍然是被子类获取了，只是因为<font color = red>封装性</font>的影响，使得子类不能直接调用父类的结构而已。</p>
+<p><strong>继承性的规定：</strong><br>📌 Java只支持<font color = red>单继承和多层继承</font>，不允许<font color = red>多重继承</font>。一个子类只能有一个父类（java中类的单继承性），一个父类可以派生出多个子类，子类和父类是相对的概念。<br>📌 子类直接继承的父类称为<font color = red>直接父类</font>，间接继承的父类称为<font color = red>间接父类</font>，子类继承父类以后，就获取了直接父类以及所有间接父类中声明的属性和方法。<br>📌 如果没有显式的声明一个类的父类的话，则此类继承于<font color = red>java.lang.Object类</font>。所有的java类（除Object类之外）都直接或间接地继承于Object类，意味着所有的java类具有Object类声明的功能。</p>
+]]></content>
+      <categories>
+        <category>javaSE</category>
+      </categories>
+      <tags>
+        <tag>javaSE</tag>
+        <tag>面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>javaSE基础学习day10</title>
     <url>/posts/b0c21ab7.html</url>
     <content><![CDATA[<h2 id="Eclipse的快捷键使用"><a href="#Eclipse的快捷键使用" class="headerlink" title="Eclipse的快捷键使用"></a>Eclipse的快捷键使用</h2><table>
