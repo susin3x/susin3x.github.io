@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.susin3x.cn/images/202202281818594.png">
+  <link rel="mask-icon" href="https://img.susin3x.cn/images/202202281819953.png" color="#222">
+  <meta name="baidu-site-verification" content="code-gxBFH8JM9T">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="主要学习了Eclipse的快捷键，熟悉快捷键之后，写代码速度应该会快些🤔。还做了个小项目———《客户信息管理系统》，涉及到对属性、方法和构造器的使用，以及对数组的插入、删除和替换的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaSE基础学习day10">
+<meta property="og:url" content="https://susin3x.cn/posts/b0c21ab7.html">
+<meta property="og:site_name" content="Susin3x&#39;s Blog">
+<meta property="og:description" content="主要学习了Eclipse的快捷键，熟悉快捷键之后，写代码速度应该会快些🤔。还做了个小项目———《客户信息管理系统》，涉及到对属性、方法和构造器的使用，以及对数组的插入、删除和替换的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207130025456.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207141035993.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207141030144.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207141036744.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207141037665.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207141125529.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207141456928.svg">
+<meta property="article:published_time" content="2022-02-06T14:51:20.000Z">
+<meta property="article:modified_time" content="2023-05-14T03:11:00.937Z">
+<meta property="article:author" content="susin3x">
+<meta property="article:tag" content="javaSE">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.susin3x.cn/images/202207130025456.png">
+
+<link rel="canonical" href="https://susin3x.cn/posts/b0c21ab7.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>javaSE基础学习day10 | Susin3x's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Susin3x's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Susin3x's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-bibi">
+
+    <a href="/bb/" rel="section"><i class="fa fa-comment fa-fw"></i>说说</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fas fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/b0c21ab7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaSE基础学习day10
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-06 22:51:20" itemprop="dateCreated datePublished" datetime="2022-02-06T22:51:20+08:00">2022-02-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSE/" itemprop="url" rel="index"><span itemprop="name">javaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">主要学习了Eclipse的快捷键，熟悉快捷键之后，写代码速度应该会快些🤔。还做了个小项目———《客户信息管理系统》，涉及到对属性、方法和构造器的使用，以及对数组的插入、删除和替换的使用。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Eclipse的快捷键使用"><a href="#Eclipse的快捷键使用" class="headerlink" title="Eclipse的快捷键使用"></a>Eclipse的快捷键使用</h2><table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">alt + /</td>
+<td align="center">补全代码的声明</td>
+</tr>
+<tr>
+<td align="center">ctrl + 1</td>
+<td align="center">快速修复</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + o</td>
+<td align="center">批量导包</td>
+</tr>
+<tr>
+<td align="center">ctrl + /</td>
+<td align="center">使用单行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + /</td>
+<td align="center">使用多行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + \</td>
+<td align="center">取消多行注释</td>
+</tr>
+<tr>
+<td align="center">ctrl + alt + down 或<br>ctrl + alt + up</td>
+<td align="center">复制指定行的代码</td>
+</tr>
+<tr>
+<td align="center">ctrl + d</td>
+<td align="center">删除指定行的代码</td>
+</tr>
+<tr>
+<td align="center">alt + up 或<br />alt + down</td>
+<td align="center">上下移动代码</td>
+</tr>
+<tr>
+<td align="center">shift + enter</td>
+<td align="center">切换到下一行代码空位</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + enter</td>
+<td align="center">切换到上一行代码空位</td>
+</tr>
+<tr>
+<td align="center">ctrl + 选中指定的结构<br />ctrl + shift + t</td>
+<td align="center">查看源码</td>
+</tr>
+<tr>
+<td align="center">alt + left 或<br />鼠标后侧键</td>
+<td align="center">退回到前一个编辑的页面</td>
+</tr>
+<tr>
+<td align="center">alt + right或<br />鼠标前侧键</td>
+<td align="center">进入到下一个编辑的页面（针对于上面那条来说）</td>
+</tr>
+<tr>
+<td align="center">ctrl + t</td>
+<td align="center">光标选中指定的类，查看继承树结构</td>
+</tr>
+<tr>
+<td align="center">ctrl + c</td>
+<td align="center">复制代码</td>
+</tr>
+<tr>
+<td align="center">ctrl + z</td>
+<td align="center">撤销</td>
+</tr>
+<tr>
+<td align="center">ctrl + y</td>
+<td align="center">反撤销</td>
+</tr>
+<tr>
+<td align="center">ctrl + x</td>
+<td align="center">剪切</td>
+</tr>
+<tr>
+<td align="center">ctrl + v</td>
+<td align="center">粘贴</td>
+</tr>
+<tr>
+<td align="center">ctrl + s</td>
+<td align="center">保存</td>
+</tr>
+<tr>
+<td align="center">ctrl + a</td>
+<td align="center">全选</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + f<br />(和繁简切换冲突，我已经自定义成 shift + f)</td>
+<td align="center">格式化代码</td>
+</tr>
+<tr>
+<td align="center">tab</td>
+<td align="center">选中数行，整体往后移动</td>
+</tr>
+<tr>
+<td align="center">shift + tab</td>
+<td align="center">选中数行，整体往前移动</td>
+</tr>
+<tr>
+<td align="center">ctrl + o</td>
+<td align="center">在当前类中，显示类结构，并支持搜索指定的方法、属性等</td>
+</tr>
+<tr>
+<td align="center">alt  + shift + r</td>
+<td align="center">批量修改指定的变量名、方法名、类名等</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + x</td>
+<td align="center"><font color = red>选中</font>的结构大小写切换（变成大写）</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + y</td>
+<td align="center"><font color = red>选中</font>的结构大小写切换（变成小写）</td>
+</tr>
+<tr>
+<td align="center">alt + shift + s</td>
+<td align="center">调出生成getter/setter/构造器等结构</td>
+</tr>
+<tr>
+<td align="center">alt + enter</td>
+<td align="center">显示当前选择资源（工程 or  文件）的属性</td>
+</tr>
+<tr>
+<td align="center">ctrl + k</td>
+<td align="center">快速查找（参考选中的Word快速定位到下一个）</td>
+</tr>
+<tr>
+<td align="center">ctrl + w</td>
+<td align="center">关闭当前窗口</td>
+</tr>
+<tr>
+<td align="center">ctrl + shift + w</td>
+<td align="center">关闭所有窗口</td>
+</tr>
+<tr>
+<td align="center">ctrl + alt + g</td>
+<td align="center">查看指定的结构使用过的地方</td>
+</tr>
+<tr>
+<td align="center">ctrl + f</td>
+<td align="center">查找与替换</td>
+</tr>
+<tr>
+<td align="center">ctrl + m</td>
+<td align="center">最大化当前的View</td>
+</tr>
+<tr>
+<td align="center">home</td>
+<td align="center">直接定位到当前行的首位</td>
+</tr>
+<tr>
+<td align="center">end</td>
+<td align="center">直接定位到当前行的末位</td>
+</tr>
+</tbody></table>
+<h2 id="项目二：客户信息管理软件"><a href="#项目二：客户信息管理软件" class="headerlink" title="项目二：客户信息管理软件"></a>项目二：客户信息管理软件</h2><p>模拟实现基于文本界面的《客户信息管理软件》，该软件能够实现对客户对象的插入、修改和删除（用数组实现），并能够打印客户明细表。项目采用分级菜单方式，主菜单如下：</p>
+<p><img data-src="https://img.susin3x.cn/images/202207130025456.png"></p>
+<h3 id="项目需求"><a href="#项目需求" class="headerlink" title="项目需求"></a>项目需求</h3><p>📌 每个客户的信息被保存在Customer对象中。<br>📌 以一个Customer类型的数组来记录当前所有的客户。<br>📌 每次“添加客户”（菜单1）后，客户（Customer）对象被添加到数组中。<br>📌 每次“修改客户”（菜单2）后，修改后的客户（Customer）对象替换数组中原对象。<br>📌 每次“删除客户”（菜单3）后，客户（Customer）对象被从数组中清除。<br>📌 执行“客户列表 ”（菜单4）时，将列出数组中所有客户的信息。</p>
+<p>“添加客户”的界面及操作过程如下所示：</p>
+<p><img data-src="https://img.susin3x.cn/images/202207141035993.png"></p>
+<p>“修改客户”的界面及操作过程如下所示：</p>
+<p><img data-src="https://img.susin3x.cn/images/202207141030144.png"></p>
+<p>“删除客户”的界面及操作过程如下所示：</p>
+<p><img data-src="https://img.susin3x.cn/images/202207141036744.png"></p>
+<p>“客户列表”的界面及操作过程如下所示：</p>
+<p><img data-src="https://img.susin3x.cn/images/202207141037665.png"></p>
+<h3 id="软件设计结构"><a href="#软件设计结构" class="headerlink" title="软件设计结构"></a>软件设计结构</h3><p>该软件由以下三个模块组成：</p>
+<p><img data-src="https://img.susin3x.cn/images/202207141125529.svg" alt="软件设计结构"></p>
+<p>CustomerView为主模块，负责菜单的显示和处 理用户操作。CustomerList为Customer对象的管理模块，内部用数组管理一组Customer对象，并提供相应的添加、修改、删除和遍历方法，供CustomerView调用。Customer为实体对象，用来封装客户信息。</p>
+<p><img data-src="https://img.susin3x.cn/images/202207141456928.svg" alt="enterMainMenu()的活动图"></p>
+<h3 id="工具类CMUtility-java"><a href="#工具类CMUtility-java" class="headerlink" title="工具类CMUtility.java"></a>工具类CMUtility.java</h3><p>项目二中提供了CMUtility.java类，可用来方便地实现键盘访问，该类提供了以下静态方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">CMUtility.java类的静态方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><font color = blue>public static char readMenuSelection()</font>：</td>
+</tr>
+<tr>
+<td align="center">该方法读取键盘，如果用户键入’1’-’5’中的任意字符，则方法返回，返回值为用户键入字符。</td>
+</tr>
+<tr>
+<td align="center"><font color = blue>public static char readChar() 和<br /> public static char readChar(char defaultValue)</font>：</td>
+</tr>
+<tr>
+<td align="center">这两个方法功能相同，均从键盘读取一个字符，并将其作为方法的返回值。如果用户不输入字符而直接回车，方法将以defaultValue 作为返回值。（提示：此方法可在修改客户时调用）</td>
+</tr>
+<tr>
+<td align="center"><font color = blue>public static int readInt()和<br />public static int readInt(int defaultValue)</font>：</td>
+</tr>
+<tr>
+<td align="center">这两个方法功能相同，均从键盘读取一个长度不超过2位的整数，并将其作为方法的返回值。如果用户不输入字符而直接回车，方法将以defaultValue 作为返回值。</td>
+</tr>
+<tr>
+<td align="center"><font color = blue>public static String readString(int limit)和<br />public static String readString(int limit,String defaultValue)</font>：</td>
+</tr>
+<tr>
+<td align="center">这两个方法功能相同，均从键盘读取一个长度不超过limit的字符串，并将其作为方法的返回值。limit指定字符串的最大长度，如果用户不输入字符而直接回车，方法将以defaultValue 作为返回值。</td>
+</tr>
+<tr>
+<td align="center"><font color = blue>public static char readConfirmSelection()</font>：</td>
+</tr>
+<tr>
+<td align="center">从键盘读取‘Y’或’N’，并将其作为方法的返回值。</td>
+</tr>
+</tbody></table>
+<h3 id="类的设计"><a href="#类的设计" class="headerlink" title="类的设计"></a>类的设计</h3><p>Customer类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Customer类用来封装客户信息，该类封装客户的以下信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">String name ：客户姓名<br/>char gender ：性别<br/>int age ：年龄<br/>String phone ：电话号码<br/>String email ：电子邮箱<br/>提供各属性的get/set方法<br/>提供所需的构造器</td>
+</tr>
+</tbody></table>
+<p>CustomerList类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">CustomerList类的成员</th>
+<th align="center">详细</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">属性</td>
+<td align="center">Customer[] customers ：用来保存客户对象的数组<br />int total = 0 ：记录已保存客户对象的数量</td>
+</tr>
+<tr>
+<td align="center">构造器</td>
+<td align="center"><font color = blue>public CustomerList(int totalCustomer)</font>：<br />📌 用途：初始化customers数组；<br />📌 参数：totalCustomer：指定customers数组的最大空间。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public boolean addCustomer(Customer customer)</font>：<br />📌 用途：将参数customer添加到数组中最后一个客户对象记录之后；<br />📌 参数：customer指定要添加的客户对象；<br />📌 返回：添加成功返回true；false表示数组已满，无法添加。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public boolean replaceCustomer(int index, Customer customer)</font>：<br />📌 用途：用参数customer替换数组中由index指定的对象；<br />📌 参数：customer指定替换的新客户对象，<br />index指定所替换对象在数组中的位置，从0开始；<br />📌 返回：替换成功返回true；false表示索引无效，无法替换。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public boolean deleteCustomer(int index)</font>：<br />📌 用途：从数组中删除参数index指定索引位置的客户对象记录；<br />📌 参数： index指定所删除对象在数组中的索引位置，从0开始；<br />📌 返回：删除成功返回true；false表示索引无效，无法删除。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public Customer[] getAllCustomers()</font>：<br />📌 用途：返回数组中记录的所有客户对象；<br />📌 返回： Customer[] 数组中包含了当前所有客户对象，该数组长度与对象个数相同。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public Customer getCustomer(int index)</font>：<br />📌 用途：返回参数index指定索引位置的客户对象记录；<br />📌 参数： index指定所要获取的客户在数组中的索引位置，从0开始；<br />📌 返回：封装了客户信息的Customer对象。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public int getTotal()</font>：<br />📌 用途：返回total的值。</td>
+</tr>
+</tbody></table>
+<p>CustomerView类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">CustomerView类的成员</th>
+<th align="center">详细</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">属性</td>
+<td align="center">CustomerList customerList = new CustomerList(10);<br />创建最大包含10个客户对象的CustomerList 对象，供以下各成员方法使用。</td>
+</tr>
+<tr>
+<td align="center">构造器</td>
+<td align="center"><font color = blue>public CustomerView()</font>：<br />📌 用途：创建一个名叫“张三”的Customer对象。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public void enterMainMenu()</font>：<br />📌 用途：显示主菜单，响应用户输入，根据用户操作分别调用其他相应的成员方法（如addNewCustomer），以完成客户信息处理。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>private void addNewCustomer()</font>：<br /><font color = blue>private void modifyCustomer()</font>：<br /><font color = blue>private void deleteCustomer()</font>：<br /><font color = blue>private void listAllCustomers()</font>：<br />📌 用途：这四个方法分别完成“添加客户”、“修改客户”、<br />“删除客户”和“客户列表”等各菜单功能。</td>
+</tr>
+<tr>
+<td align="center">方法</td>
+<td align="center"><font color = blue>public static void main(String[] args)</font>：<br />📌 用途：创建CustomerView实例，并调用 enterMainMenu()方法以执行程序。</td>
+</tr>
+</tbody></table>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Customer</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> String name;  <span class="comment">//姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">char</span> gender;  <span class="comment">//性别</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;      <span class="comment">//年龄</span></span><br><span class="line">    <span class="keyword">private</span> String phone; <span class="comment">//电话号码</span></span><br><span class="line">    <span class="keyword">private</span> String email;  <span class="comment">//电子邮箱</span></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Customer</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Customer</span><span class="params">(String name,<span class="type">char</span> gender,<span class="type">int</span> age,String phone,String email)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.gender = gender;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">        <span class="built_in">this</span>.phone = phone;</span><br><span class="line">        <span class="built_in">this</span>.email = email;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setGender</span><span class="params">(<span class="type">char</span> gender)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.gender = gender;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">char</span> <span class="title function_">getGender</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gender;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> age)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPhone</span><span class="params">(String phone)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.phone = phone;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPhone</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> phone;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setEmail</span><span class="params">(String email)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.email = email;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getEmail</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> email;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomerList</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> Customer[] customers;<span class="comment">//用来保存客户对象的数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> total;           <span class="comment">//记录已保存客户对象的数量</span></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CustomerList</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CustomerList</span><span class="params">(<span class="type">int</span> totalCustomer)</span>&#123;</span><br><span class="line">        customers = <span class="keyword">new</span> <span class="title class_">Customer</span>[totalCustomer];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">addCustomer</span><span class="params">(Customer customer)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(total &gt;= customers.length)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        customers[total++] = customer;<span class="comment">//增加客户total要加一</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">replaceCustomer</span><span class="params">(<span class="type">int</span> index,Customer customer)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || index &gt;= total)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        customers[index] = customer;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">deleteCustomer</span><span class="params">(<span class="type">int</span> index)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || index &gt;= total)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> index;i &lt; total-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            customers[i] = customer[i+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        customer[--total] = <span class="literal">null</span>;<span class="comment">//最后一个元素要置为null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Customer[] getAllCustomers()&#123;</span><br><span class="line">        <span class="type">Customer</span> <span class="variable">customer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Customer</span>[total];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; total;i++)&#123;</span><br><span class="line">            customer[i] = customers[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> customer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Customer <span class="title function_">getCustomer</span><span class="params">(<span class="type">int</span> index)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || index &gt;= total)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;<span class="comment">//customers数组的其他位置没有存数据，返回null</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> customers[index];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getTotal</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomerView</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">CustomerList</span> <span class="variable">customerList</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CustomerList</span>(<span class="number">10</span>);<span class="comment">//创建最大包含10个客户对象的CustomerList 对象</span></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CustomerView</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Customer</span> <span class="variable">customer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Customer</span>(<span class="string">&quot;张三&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="number">30</span>,<span class="string">&quot;010-56253825&quot;</span>,<span class="string">&quot;abc@email.com&quot;</span>);</span><br><span class="line">        customerList.addCustomer(customer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">enterMainMenu</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isFlag</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(isFlag)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;\n-----------------客户信息管理软件-----------------\n&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;                   1 添 加 客 户&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;                   2 修 改 客 户&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;                   3 删 除 客 户&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;                   4 客 户 列 表&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;                   5 退       出\n&quot;</span>);</span><br><span class="line">            System.out.print(<span class="string">&quot;                   请选择(1-5)：&quot;</span>);</span><br><span class="line">            <span class="type">char</span> <span class="variable">menu</span> <span class="operator">=</span> CMUtility.readMenuSelection();</span><br><span class="line">            <span class="keyword">switch</span>(menu)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">                addNewCustomer();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;2&#x27;</span>:</span><br><span class="line">                modifyCustomer();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;3&#x27;</span>:</span><br><span class="line">                deleteCustomer();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;4&#x27;</span>:</span><br><span class="line">                listAllCustomers();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;5&#x27;</span>:</span><br><span class="line">                System.out.println(<span class="string">&quot;\n确定是否退出(Y/N)：&quot;</span>);</span><br><span class="line">                <span class="type">char</span> <span class="variable">isExit</span> <span class="operator">=</span> CMUtility.readConfirmSelection();</span><br><span class="line">                <span class="keyword">if</span>(isExit == <span class="string">&#x27;Y&#x27;</span>)&#123;</span><br><span class="line">                    isFlag = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">addNewCustomer</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;\n---------------------添加客户---------------------&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;姓名：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> CMUtility.readString(<span class="number">10</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;性别：&quot;</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">gender</span> <span class="operator">=</span> CMUtility.readChar();</span><br><span class="line">        System.out.print(<span class="string">&quot;年龄：&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> CMUtility.readInt();</span><br><span class="line">        System.out.print(<span class="string">&quot;电话：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> CMUtility.readString(<span class="number">30</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;邮箱：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">email</span> <span class="operator">=</span> CMUtility.readString(<span class="number">30</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="type">Customer</span> <span class="variable">customer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Customer</span>(name,gender,age,phone,email);<span class="comment">//将上述数据封装到对象中</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isAdd</span> <span class="operator">=</span> customerList.addCustomer(customer);</span><br><span class="line">        <span class="keyword">if</span>(isAdd)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;---------------------添加完成---------------------&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;----------------客户目录已满,添加失败---------------&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">modifyCustomer</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;\n---------------------修改客户---------------------&quot;</span>);</span><br><span class="line">        Customer customer;</span><br><span class="line">        <span class="type">int</span> number;</span><br><span class="line">        <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;请选择待修改客户编号(-1退出)：&quot;</span>);</span><br><span class="line">            number = CMUtility.readInt();</span><br><span class="line">            <span class="keyword">if</span>(number == -<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            customer = customerList.getCustomer(number - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(customer == <span class="literal">null</span>)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;无法找到指定客户！&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;<span class="comment">//找到了相应编号的客户</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;   </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//修改客户信息</span></span><br><span class="line">        System.out.print(<span class="string">&quot;姓名(&quot;</span> + customer.getName() + <span class="string">&quot;):&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> CMUtility.readString(<span class="number">10</span>,customer.getName());</span><br><span class="line">        </span><br><span class="line">        System.out.print(<span class="string">&quot;性别(&quot;</span> + customer.getGender() + <span class="string">&quot;):&quot;</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">gender</span> <span class="operator">=</span> CMUtility.readChar(customer.getGender());</span><br><span class="line">        </span><br><span class="line">        System.out.print(<span class="string">&quot;年龄(&quot;</span> + customer.getAge() + <span class="string">&quot;):&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> CMUtility.readInt(customer.getAge());</span><br><span class="line">        </span><br><span class="line">        System.out.print(<span class="string">&quot;电话(&quot;</span> + customer.getPhone() + <span class="string">&quot;):&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> CMUtility.readString(<span class="number">30</span>,customer.getPhone());</span><br><span class="line">        </span><br><span class="line">        System.out.print(<span class="string">&quot;邮箱(&quot;</span> + customer.getEmail() + <span class="string">&quot;):&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">email</span> <span class="operator">=</span> CMUtility.readString(<span class="number">30</span>,customer.getEmail());</span><br><span class="line">        </span><br><span class="line">        Customer = <span class="keyword">new</span> <span class="title class_">Customer</span>(name,gender,age,phone,email);</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isReplaced</span> <span class="operator">=</span> customerList.replaceCustomer(number-<span class="number">1</span>,Customer);</span><br><span class="line">        <span class="keyword">if</span>(isReplaced)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;---------------------修改完成---------------------&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;---------------------修改失败---------------------&quot;</span>);<span class="comment">//其实是无法执行到这条语句的</span></span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">deleteCustomer</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;\n---------------------删除客户---------------------&quot;</span>);</span><br><span class="line">        <span class="type">int</span> number;</span><br><span class="line">        Customer customer;</span><br><span class="line">        <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;请选择待删除客户编号(-1退出)：&quot;</span>);</span><br><span class="line">            number = CMUtility.readInt();</span><br><span class="line">            <span class="keyword">if</span>(number == -<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;<span class="comment">//结束deleteCustomer()方法</span></span><br><span class="line">            &#125;</span><br><span class="line">            customer = customerList.getCustomer(number-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(customer == <span class="literal">null</span>)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;无法找到指定客户！&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//找到了指定的客户</span></span><br><span class="line">        System.out.println(<span class="string">&quot;确认是否删除(Y/N)：&quot;</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">isDelete</span> <span class="operator">=</span> CMUtility.readConfirmSelection();</span><br><span class="line">        <span class="keyword">if</span>(isDelete == <span class="string">&#x27;Y&#x27;</span>)&#123;</span><br><span class="line">            <span class="type">boolean</span> <span class="variable">deleteCustomer</span> <span class="operator">=</span> customerList.deleteCustomer(number-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(deleteCustomer)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;---------------------删除完成---------------------&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;--------------无法找到指定客户,删除失败--------------&quot;</span>);<span class="comment">//其实是无法执行到这条语句的</span></span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">listAllCustomers</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;\n---------------------------客户列表---------------------------&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">total</span> <span class="operator">=</span> customerList.getTotal();</span><br><span class="line">        <span class="type">int</span> number;<span class="comment">//编号</span></span><br><span class="line">        <span class="keyword">if</span>(total == <span class="number">0</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有用户记录&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;编号\t姓名\t性别\t年龄\t\t电话\t\t邮箱&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; total;i++)&#123;</span><br><span class="line">                number = i + <span class="number">1</span>;</span><br><span class="line">                <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> customerList.getCustomer(i).getName();</span><br><span class="line">                <span class="type">char</span> <span class="variable">gender</span> <span class="operator">=</span> customerList.getCustomer(i).getGender();</span><br><span class="line">                <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> customerList.getCustomer(i).getAge();</span><br><span class="line">                <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> customerList.getCustomer(i).getPhone();</span><br><span class="line">                <span class="type">String</span> <span class="variable">email</span> <span class="operator">=</span> customerList.getCustomer(i).getEmail();</span><br><span class="line">                System.out.println(number + <span class="string">&quot;\t&quot;</span> + name + <span class="string">&quot;\t&quot;</span> + gender + <span class="string">&quot;\t&quot;</span> + age + <span class="string">&quot;\t\t&quot;</span> + phone + <span class="string">&quot;\t&quot;</span> + email);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;-------------------------客户列表完成-------------------------&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//main方法，程序的入口</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">CustomerView</span> <span class="variable">custView</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CustomerView</span>();</span><br><span class="line">        custView.enterMainMenu();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/b0c21ab7.html" title="javaSE基础学习day10">https://susin3x.cn/posts/b0c21ab7.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javaSE/" rel="tag"><i class="fa fa-tag"></i> javaSE</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"><i class="fa fa-tag"></i> 面向对象</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d0059352.html" rel="prev" title="javaSE基础学习day09">
+      <i class="fa fa-chevron-left"></i> javaSE基础学习day09
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/c7c52a21.html" rel="next" title="javaSE基础学习day11">
+      javaSE基础学习day11 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Eclipse%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Eclipse的快捷键使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BA%8C%EF%BC%9A%E5%AE%A2%E6%88%B7%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">项目二：客户信息管理软件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%9C%80%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">项目需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">软件设计结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E7%B1%BBCMUtility-java"><span class="nav-number">2.3.</span> <span class="nav-text">工具类CMUtility.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.4.</span> <span class="nav-text">类的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.5.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="susin3x"
+      src="https://img.susin3x.cn/images/202202281750409.png">
+  <p class="site-author-name" itemprop="name">susin3x</p>
+  <div class="site-description" itemprop="description">念念不忘必有回响</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1c2luM3g=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;susin3x"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJnVpbj0yMzg2MDQyMTU1JnNpdGU9cXEmbWVudT15ZXM=" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;2386042155&amp;site&#x3D;qq&amp;menu&#x3D;yes"><i class="fab fa-qq fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmFzaW4zeEAxNjMuY29t" title="E-Mail → mailto:asin3x@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">susin3x</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">湘ICP备2022004776号-1 </span>
+      <span class="post-meta-divider">|</span>
+      <img src="https://img.susin3x.cn/images/202203301541843.png" style="display: inline-block;"><span class="exturl" data-url="aHR0cDovL3d3dy5iZWlhbi5nb3YuY24vcG9ydGFsL3JlZ2lzdGVyU3lzdGVtSW5mbz9yZWNvcmRjb2RlPTQzMDMyMTAyMDAwMjQx">湘公网安备 43032102000241号 </span>
+  </div>
+
+        
+<div class="busuanzi-count">
+
+  <!--
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+
+  <script async src="https://img.susin3x.cn/js/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/1.0.1/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/b0c21ab7.html',]
+      });
+      });
+  </script>
+
+</body>
+</html>

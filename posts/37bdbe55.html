@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.susin3x.cn/images/202202281818594.png">
+  <link rel="mask-icon" href="https://img.susin3x.cn/images/202202281819953.png" color="#222">
+  <meta name="baidu-site-verification" content="code-gxBFH8JM9T">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="主要学习了面向对象，初步了解了面向对象的思想。类是抽象的概念，感觉很像模板，而对象则是把具体信息带入模板的实体。理解了对象创建和使用的内存解析过程，感觉学习对象就不是很难了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaSE基础学习day07">
+<meta property="og:url" content="https://susin3x.cn/posts/37bdbe55.html">
+<meta property="og:site_name" content="Susin3x&#39;s Blog">
+<meta property="og:description" content="主要学习了面向对象，初步了解了面向对象的思想。类是抽象的概念，感觉很像模板，而对象则是把具体信息带入模板的实体。理解了对象创建和使用的内存解析过程，感觉学习对象就不是很难了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204261411995.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204262225538.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204121255765.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204262234894.svg">
+<meta property="article:published_time" content="2022-02-03T09:22:43.000Z">
+<meta property="article:modified_time" content="2023-05-14T03:11:00.904Z">
+<meta property="article:author" content="susin3x">
+<meta property="article:tag" content="javaSE">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.susin3x.cn/images/202204261411995.png">
+
+<link rel="canonical" href="https://susin3x.cn/posts/37bdbe55.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>javaSE基础学习day07 | Susin3x's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Susin3x's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Susin3x's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-bibi">
+
+    <a href="/bb/" rel="section"><i class="fa fa-comment fa-fw"></i>说说</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fas fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/37bdbe55.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaSE基础学习day07
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-03 17:22:43" itemprop="dateCreated datePublished" datetime="2022-02-03T17:22:43+08:00">2022-02-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSE/" itemprop="url" rel="index"><span itemprop="name">javaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">主要学习了面向对象，初步了解了面向对象的思想。类是抽象的概念，感觉很像模板，而对象则是把具体信息带入模板的实体。理解了对象创建和使用的内存解析过程，感觉学习对象就不是很难了。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><ul>
+<li>Java类及类的成员：属性、方法、构造器；代码块、内部类。</li>
+<li>面向对象的三大特征：封装性、继承性、多态性、(抽象性)。</li>
+<li>其它关键字：this、super、static、final、abstract、interface、package、import等。</li>
+</ul>
+<h3 id="面向对象（OOP）与面向过程（POP）"><a href="#面向对象（OOP）与面向过程（POP）" class="headerlink" title="面向对象（OOP）与面向过程（POP）"></a>面向对象（OOP）与面向过程（POP）</h3><p>二者都是一种思想，面向对象是相对于面向过程而言的。面向过程，强调的是功能行为，以函数为最小单位，考虑怎么做。面向对象，强调具备了功能的对象，以类/对象为最小单位，考虑谁来做。面向对象更加强调运用人类在日常的思维逻辑中采用的思想方法与原则，如抽象、分类、继承、聚合、多态等。</p>
+<p>面向对象分析方法的思路和步骤：</p>
+<ol>
+<li>根据问题需要，选择问题所针对的<font color = red>现实世界中的实体</font>。</li>
+<li>从实体中寻找解决问题相关的属性和功能，这些属性和功能就形成了<font color = red>概念世界中的类</font>。</li>
+<li>把抽象的实体用计算机语言进行描述，<font color = red>形成计算机世界中类的定义</font>。即借助某种程序语言，把类构造成计算机能够识别和处理的数据结构。</li>
+<li>将<font color = red>类实例化成计算机世界中的对象</font>，对象是计算机世界中解决问题的最终工具。</li>
+</ol>
+<h3 id="java语言的基本元素：类和对象"><a href="#java语言的基本元素：类和对象" class="headerlink" title="java语言的基本元素：类和对象"></a>java语言的基本元素：类和对象</h3><p>万事万物皆对象，类(Class)和对象(Object)是面向对象的核心概念。类是对一类事物的描述，是抽象的、概念上的定义。对象是实际存在的该类事物的每个个体，因而也称为<font color = red>实例(instance)</font>。对象是由类new出来的，派生出来的。面向对象程序设计的重点是<font color  = red>类的设计</font>，类的设计其实就是<font color = red>类的成员的设计</font>。</p>
+<p>常见的类的成员有属性（对应类中的成员变量），行为（对应类中的成员方法）。</p>
+<ul>
+<li>Field = 属性 = 成员变量= 域、字段</li>
+<li>Method =  成员方法 = 函数</li>
+<li>创建类的对象 = 类的实例化 = 实例化类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    String name;</span><br><span class="line">    <span class="type">boolean</span> isMarried;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String n,<span class="type">boolean</span> m)</span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        isMarried = m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">walk</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人走路&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">display</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;名字是：&quot;</span> + name + <span class="string">&quot;，是否结婚&quot;</span> + isMarried;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//代码块</span></span><br><span class="line">    &#123;</span><br><span class="line">        name = <span class="string">&quot;HanMeiMei&quot;</span>;</span><br><span class="line">        age = <span class="number">17</span>;</span><br><span class="line">        isMarried = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//内部类</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">pet</span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="type">float</span> weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类的创建"><a href="#类的创建" class="headerlink" title="类的创建"></a>类的创建</h3><ol>
+<li>定义类（考虑修饰符、类名）</li>
+<li>编写类的属性（考虑修饰符、属性类型、属性名、初始化值）</li>
+<li>编写类的方法（考虑修饰符、返回值类型、方法名、形参等）</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类的语法格式</span></span><br><span class="line">修饰符 class 类名 &#123;</span><br><span class="line">    属性声明;</span><br><span class="line">    方法声明;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：修饰符public：类可以被任意访问，类的正文要用{  }括起来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//举例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span>  <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age ; <span class="comment">//声明私有变量 age</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">showAge</span><span class="params">(<span class="type">int</span> i)</span> &#123; <span class="comment">//声明方法showAge( )</span></span><br><span class="line">        age = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象的创建和使用"><a href="#对象的创建和使用" class="headerlink" title="对象的创建和使用"></a>对象的创建和使用</h3><p>使用<font color = red>类名 对象名 = new 类名()</font>创建对象，使用“<font color = red>object name.object member</font>”的方式访问对象成员。类和对象的使用（面向对象思想落地的实现）如下：</p>
+<ol>
+<li>创建类，设计类的成员</li>
+<li>创建类的对象</li>
+<li>通过“object.field”或“object.method”调用对象的结构</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//举例：计算圆的面积</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CircleTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Circle</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Circle</span>();<span class="comment">//创建对象</span></span><br><span class="line">        c.radius = <span class="number">2</span>;<span class="comment">//访问属性</span></span><br><span class="line">        System.out.println(c.calculateArea()); <span class="comment">//访问并输出方法</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//圆</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span>&#123;</span><br><span class="line">    <span class="type">double</span> radius;<span class="comment">//半径作为属性更合适</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculateArea</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">area</span> <span class="operator">=</span> Math.PI * radius * radius;</span><br><span class="line">        <span class="keyword">return</span> area;	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果创建了一个类的多个对象，则每个对象都独立的拥有一套类的属性（非static），且互不干扰。如果修改一个对象的属性a，则不影响另外一个对象属性a的值。</p>
+<ul>
+<li><font color = red>在一个类中的访问机制</font>：类中的方法可以直接访问类中的成员变量。<br>（例外：<font color = "#0000dc">static方法访问非static，编译不通过。</font>）</li>
+<li><font color = red>在不同类中的访问机制</font>：先创建要访问类的对象，再用对象访问类中定义的成员。</li>
+</ul>
+<h4 id="内存解析"><a href="#内存解析" class="headerlink" title="内存解析"></a>内存解析</h4><p>编译完源程序（.java）以后，生成一个或多个字节码（.class）文件。使用JVM中类的加载器和解释器对生成的字节码文件进行解释运行，意味着需要将字节码文件对应的类加载到内存中，涉及到内存解析。</p>
+<p><img data-src="https://img.susin3x.cn/images/202204261411995.png" alt="JVM内存结构"></p>
+<p>JVM分为五个区域：虚拟机栈、本地方法栈、方法区、堆、程序计数器。虚拟机栈、本地方法栈、程序计数器为线程私有，方法区和堆为线程共享区。上图中已经用颜色区分，红色表示“通行”，蓝色表示停一停（需等待）。JVM不同区域的占用内存大小不同，一般情况下堆最大，程序计数器较小。</p>
+<ul>
+<li>堆内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在堆分配内存。在java虚拟机规范中的描述是：所有的对象实例以及数组都要在堆上分配，对象的非static属性加载在堆中。</li>
+<li>通常所说的栈是指虚拟机栈，虚拟机栈用于存储局部变量等。局部变量表存放了编译期可知长度的各种基本数据类型（boolean、byte、char 、 short 、 int 、  long 、float 、double）、对象引用（reference类型，它不等同于对象本身，是对象在堆内存的首地址）， <font color = red>方法执行完自动释放</font>。</li>
+<li>方法区用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202204262225538.svg" alt="对象的内存解析"></p>
+<h4 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h4><p>不定义对象的句柄，直接调用这个对象的方法，这样的对象叫做匿名对象。如：new Person().shout(); </p>
+<ul>
+<li>我们经常将匿名对象作为实参传递给一个方法调用。</li>
+<li>匿名对象只能调用一次，如果对一个对象只需要进行一次方法调用，那么就可以使用匿名对象。</li>
+</ul>
+<h3 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h3><p>Java类的成员有5类：属性、方法、构造器；代码块、内部类。</p>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><p>语法格式：修饰符 数据类型 属性名 = 初始化值 ;说明：第一，常用的权限修饰符有：private、缺省、protected、public；其他修饰符：static、final (暂不考虑)；第二， 数据类型可以是任何基本数据类型(如int、boolean)或任何引用数据类型；第三，属性名属于标识符，符合命名规则和规范即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//举例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;                <span class="comment">//声明private变量age</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;Lila&quot;</span>;    <span class="comment">//声明public变量name</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://img.susin3x.cn/images/202204121255765.svg"></p>
+<p> 在方法体外，类体内声明的变量称为成员变量。在方法体内部声明的变量称为局部变量。两者的相同点：</p>
+<ul>
+<li>定义变量的格式：数据类型  变量名 = 变量值</li>
+<li>先声明，后使用</li>
+<li>变量都有其对应的作用域</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">成员变量和局部变量的区别</th>
+<th align="center">成员变量</th>
+<th align="center">局部变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>声明的位置</strong></td>
+<td align="center">直接声明在类的{}中</td>
+<td align="center">方法内、方法形参、代码块内、</br>构造器形参、  构造器内</td>
+</tr>
+<tr>
+<td align="center"><strong>修饰符</strong></td>
+<td align="center">private 、 public 、缺省、</br>protected、 static 、 final 等</td>
+<td align="center">不能用权限修饰符修饰，可以用 final 修饰</td>
+</tr>
+<tr>
+<td align="center"><strong>初始化值</strong></td>
+<td align="center">有默认初始化值</td>
+<td align="center">没有默认初始化值，必须显式赋值，方可使用</td>
+</tr>
+<tr>
+<td align="center"><strong>内存加载位置</strong></td>
+<td align="center">堆空间（非static）或静态域内</td>
+<td align="center">栈空间</td>
+</tr>
+</tbody></table>
+<p><font color = red>两者在初始化值上的区别</font>：相同的是都有生命周期，不同的是局部变量没有默认初始化值，意味着在调用局部变量之前，除形参外均需显式赋值。特别地：形参在调用时赋值即可。</p>
+<p>当一个对象被创建时，会对其中各种类型的成员变量自动进行初始化赋值。除了基本数据类型之外的变量类型都是引用类型，如昨天所学的数组。成员变量的默认初始化值和数组的默认初始化值是相同的。</p>
+<table>
+<thead>
+<tr>
+<th align="center">成员变量类型</th>
+<th align="center">默认初始化值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">0L</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">0.0F</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">0.0</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">0或’\u0000’</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">引用数据类型</td>
+<td align="center">null</td>
+</tr>
+</tbody></table>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>方法是类或对象行为特征的抽象，用来完成某个功能操作。在某些语言中也称为函数或过程。将功能封装成方法是为了实现代码复用，简化代码。java中的方法不能独立存在，所有的方法必须定义在类中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法的语法格式</span></span><br><span class="line">修饰符 返回值类型 方法名（参数类型 形参<span class="number">1</span>, 参数类型 形参<span class="number">2</span>, ….）｛</span><br><span class="line">方法体程序代码</span><br><span class="line"><span class="keyword">return</span> 返回值;</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
+<p>其中修饰符为public，缺省，private，protected等，static、final、abstract 可用来修饰方法。</p>
+<h5 id="return关键字"><a href="#return关键字" class="headerlink" title="return关键字"></a>return关键字</h5><p>return使用在方法体中，用于结束方法，或者针对于返回值类型的方法，使用”return 数据”方法返回所要的数据。注意：return关键字后面不可以声明执行语句。</p>
+<ul>
+<li>如果方法有返回值，则必须在方法声明时，指定返回值的类型。同时需要使用return关键字来返回指定类型的变量或常量：“return 数据”。</li>
+<li>如果方法没有返回值，则返回值类型用关键字void表示。通常没有返回值的方法中，就不需要使用return。如果使用，只能“return;”，仅用来结束方法。</li>
+</ul>
+<p><font color = red>方法中只能调用方法或属性，不可以在方法内部定义方法</font>。按照是否有形参及返回值对方法进行分类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法分类</th>
+<th align="center">无返回值</th>
+<th align="center">有返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">无形参</td>
+<td align="center">void 方法名(){}</td>
+<td align="center">返回值类型 方法名(){}</td>
+</tr>
+<tr>
+<td align="center">有形参</td>
+<td align="center">void 方法名(形参列表){}</td>
+<td align="center">返回值类型 方法名(形参列表){}</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//举例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sleep</span><span class="params">(<span class="type">int</span> hour)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getNation</span><span class="params">(String nation)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象数组的内存解析"><a href="#对象数组的内存解析" class="headerlink" title="对象数组的内存解析"></a>对象数组的内存解析</h3><p>引用类型的变量，只可能存储两类值：null  或  地址值（含变量的类型）</p>
+<p><img data-src="https://img.susin3x.cn/images/202204262234894.svg" alt="对象数组的内存解析"></p>
+<h3 id="理解“万事万物皆对象”"><a href="#理解“万事万物皆对象”" class="headerlink" title="理解“万事万物皆对象”"></a>理解“万事万物皆对象”</h3><ol>
+<li>在Java语言范畴中，都将功能、结构等封装到类中，通过类的实例化，来调用具体的功能结构。</li>
+<li>涉及Java与前端html、后端数据库交互时，前后端的结构在Java层面交互时都体现为类、对象。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/37bdbe55.html" title="javaSE基础学习day07">https://susin3x.cn/posts/37bdbe55.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javaSE/" rel="tag"><i class="fa fa-tag"></i> javaSE</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"><i class="fa fa-tag"></i> 面向对象</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/40ba8ec3.html" rel="prev" title="javaSE基础学习day06">
+      <i class="fa fa-chevron-left"></i> javaSE基础学习day06
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/a702a3c4.html" rel="next" title="javaSE基础学习day08">
+      javaSE基础学习day08 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88OOP%EF%BC%89%E4%B8%8E%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%88POP%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">面向对象（OOP）与面向过程（POP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E8%AF%AD%E8%A8%80%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0%EF%BC%9A%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.</span> <span class="nav-text">java语言的基本元素：类和对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.3.</span> <span class="nav-text">类的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">对象的创建和使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90"><span class="nav-number">1.4.1.</span> <span class="nav-text">内存解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.2.</span> <span class="nav-text">匿名对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E6%88%90%E5%91%98"><span class="nav-number">1.5.</span> <span class="nav-text">类成员</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7"><span class="nav-number">1.5.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#return%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">return关键字</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84%E7%9A%84%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90"><span class="nav-number">1.6.</span> <span class="nav-text">对象数组的内存解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%A7%A3%E2%80%9C%E4%B8%87%E4%BA%8B%E4%B8%87%E7%89%A9%E7%9A%86%E5%AF%B9%E8%B1%A1%E2%80%9D"><span class="nav-number">1.7.</span> <span class="nav-text">理解“万事万物皆对象”</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="susin3x"
+      src="https://img.susin3x.cn/images/202202281750409.png">
+  <p class="site-author-name" itemprop="name">susin3x</p>
+  <div class="site-description" itemprop="description">念念不忘必有回响</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1c2luM3g=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;susin3x"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJnVpbj0yMzg2MDQyMTU1JnNpdGU9cXEmbWVudT15ZXM=" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;2386042155&amp;site&#x3D;qq&amp;menu&#x3D;yes"><i class="fab fa-qq fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmFzaW4zeEAxNjMuY29t" title="E-Mail → mailto:asin3x@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">susin3x</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">湘ICP备2022004776号-1 </span>
+      <span class="post-meta-divider">|</span>
+      <img src="https://img.susin3x.cn/images/202203301541843.png" style="display: inline-block;"><span class="exturl" data-url="aHR0cDovL3d3dy5iZWlhbi5nb3YuY24vcG9ydGFsL3JlZ2lzdGVyU3lzdGVtSW5mbz9yZWNvcmRjb2RlPTQzMDMyMTAyMDAwMjQx">湘公网安备 43032102000241号 </span>
+  </div>
+
+        
+<div class="busuanzi-count">
+
+  <!--
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+
+  <script async src="https://img.susin3x.cn/js/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/1.0.1/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/37bdbe55.html',]
+      });
+      });
+  </script>
+
+</body>
+</html>

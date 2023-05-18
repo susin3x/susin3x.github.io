@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.susin3x.cn/images/202202281818594.png">
+  <link rel="mask-icon" href="https://img.susin3x.cn/images/202202281819953.png" color="#222">
+  <meta name="baidu-site-verification" content="code-gxBFH8JM9T">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="主要学习了java语言的特点和环境搭建，种草了截图工具Snipaste和印象笔记，有些有用的帖子就不用存chrome标签了。第一天就学了Sysout，做了个输出“心”的小作业(๑•̀ㅂ•́)و✧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaSE基础学习day01">
+<meta property="og:url" content="https://susin3x.cn/posts/dede1b60.html">
+<meta property="og:site_name" content="Susin3x&#39;s Blog">
+<meta property="og:description" content="主要学习了java语言的特点和环境搭建，种草了截图工具Snipaste和印象笔记，有些有用的帖子就不用存chrome标签了。第一天就学了Sysout，做了个输出“心”的小作业(๑•̀ㅂ•́)و✧。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.susin3x.cn/images/202202281758595.jpg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202202281759928.jpg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202202281759431.jpg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202202281759671.jpg">
+<meta property="article:published_time" content="2022-01-28T11:09:50.000Z">
+<meta property="article:modified_time" content="2023-05-14T03:11:00.853Z">
+<meta property="article:author" content="susin3x">
+<meta property="article:tag" content="javaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.susin3x.cn/images/202202281758595.jpg">
+
+<link rel="canonical" href="https://susin3x.cn/posts/dede1b60.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>javaSE基础学习day01 | Susin3x's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Susin3x's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Susin3x's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-bibi">
+
+    <a href="/bb/" rel="section"><i class="fa fa-comment fa-fw"></i>说说</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fas fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/dede1b60.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaSE基础学习day01
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-28 19:09:50" itemprop="dateCreated datePublished" datetime="2022-01-28T19:09:50+08:00">2022-01-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSE/" itemprop="url" rel="index"><span itemprop="name">javaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">主要学习了java语言的特点和环境搭建，种草了截图工具Snipaste和印象笔记，有些有用的帖子就不用存chrome标签了。第一天就学了Sysout，做了个输出“心”的小作业(๑•̀ㅂ•́)و✧。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="常用的DOS命令"><a href="#常用的DOS命令" class="headerlink" title="常用的DOS命令"></a>常用的DOS命令</h2><table>
+<thead>
+<tr>
+<th>DOS命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dir（directory，目录）：显示当前目录下的文件及子目录</td>
+</tr>
+<tr>
+<td>md（make directory)：创建目录</td>
+</tr>
+<tr>
+<td>cd（change directory）：进入指定目录</td>
+</tr>
+<tr>
+<td>rd（remove directory）：删除目录；如果目录下有文件，可以先del</td>
+</tr>
+<tr>
+<td>cd..：退回上一级目录</td>
+</tr>
+<tr>
+<td>cd/：退回到根目录</td>
+</tr>
+<tr>
+<td>del：删除文件；del *txt即删除当前目录下所有的txt格式的文件</td>
+</tr>
+</tbody></table>
+<h2 id="java语言的特点"><a href="#java语言的特点" class="headerlink" title="java语言的特点"></a>java语言的特点</h2><p>一、面向对象性</p>
+<ul>
+<li>两个要素：类、对象</li>
+<li>三个特征：封装、继承、多态</li>
+</ul>
+<p>二、健壮性</p>
+<ul>
+<li>去除了C语言的指针</li>
+<li>自动的垃圾回收机制，仍会内存溢出、内存泄漏</li>
+</ul>
+<p>三、跨平台性</p>
+<ul>
+<li>write once,run angwhere(一次编译，到处运行)</li>
+<li>Java语言编写的应用程序在不同系统上皆可运行，归功于JVM</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202202281758595.jpg" alt="JVM跨平台性"></p>
+<h2 id="java语言的环境搭建"><a href="#java语言的环境搭建" class="headerlink" title="java语言的环境搭建"></a>java语言的环境搭建</h2><h3 id="JDK-JRE-JVM的关系"><a href="#JDK-JRE-JVM的关系" class="headerlink" title="JDK,JRE,JVM的关系"></a>JDK,JRE,JVM的关系</h3><ul>
+<li>JDK（Java Development Kit，Java开发工具包）</li>
+<li>JRE（Java Runtime Environment，Java运行环境）</li>
+<li>JVM（Java Virtual Machine，Java虚拟机）</li>
+</ul>
+<p>JDK = JRE + 开发工具集（如编译工具javac.exe，打包工具jar.exe）<br>JRE = JVM + Java SE标准类库</p>
+<p><img data-src="https://img.susin3x.cn/images/202202281759928.jpg" alt="java平台结构"></p>
+<h3 id="配置环境变量path"><a href="#配置环境变量path" class="headerlink" title="配置环境变量path"></a>配置环境变量path</h3><p>根据windows系统能查找可执行程序的原理，可以将java工具所在路径定义到path环境变量中并让系统去找可执行程序。配置方法如下：</p>
+<ol>
+<li>我的电脑–属性–高级系统设置–环境变量</li>
+<li>新建一项系统变量“JAVA_HOME”,值为 jdk 的安装路径</li>
+<li>双击系统变量的path，在变量值最前端添加“%JAVA_HOME%\bin;”</li>
+</ol>
+<h2 id="开发体验-——-HelloWorld"><a href="#开发体验-——-HelloWorld" class="headerlink" title="开发体验 —— HelloWorld"></a>开发体验 —— HelloWorld</h2><ol>
+<li>编写：将编写的java代码保存在源文件（.java）中；</li>
+<li>编译：使用javac.exe命令编译java源文件；格式：javac 源文件名.java</li>
+<li>运行：使用java.exe命令解释运行字节码文件（.class）；格式：java 类名</li>
+</ol>
+<p><img data-src="https://img.susin3x.cn/images/202202281759431.jpg" alt="java编译运行过程"></p>
+<h3 id="第一个java程序"><a href="#第一个java程序" class="headerlink" title="第一个java程序"></a>第一个java程序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Java源文件以“java”为扩展名，源文件的基本组成部分是类(class)，如上HelloWorld类</li>
+<li>Java应用程序的执行入口是main()方法。它有固定的书写格式：<br>public static void main(String[] args)  {…}</li>
+<li>Java语言严格区分大小写，每个语句以“;”结束</li>
+<li>大括号都是成对出现的，缺一不可</li>
+<li>一个源文件中最多只能有一个public类。其它类的个数不限</li>
+<li>如果源文件包含一个public类，则文件名必须按该类名命名</li>
+</ul>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>java规范的三种注释方式</p>
+<ul>
+<li>单行注释：//</li>
+<li>多行注释：/*     */</li>
+<li>文档注释（Java特有的）：/**     */</li>
+</ul>
+<p>单行注释和多行注释的注释内容不参与编译，编译以后生成的.class的字节码文件中不包含注释掉的信息<br>文档注释的注释内容可以被JDK提供的工具javadoc所解析，生成一套以网页文件形式的程序说明文档</p>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>结合\n(换行)，\t(制表符)，空格等在控制台打印出如下图所示的效果</p>
+<p><img data-src="https://img.susin3x.cn/images/202202281759671.jpg"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PrintHeart</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t\t\t\t\t\t\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t\t\t&quot;</span> + <span class="string">&quot;I love Java&quot;</span> + <span class="string">&quot;\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t\t\t\t\t\t\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t\t\t\t\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t\t\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;&quot;</span> + <span class="string">&quot;\t&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;&quot;</span> + <span class="string">&quot;\t\t&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;\t\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;&quot;</span> + <span class="string">&quot;\t\t&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;\t\t\t\t\t\t\t&quot;</span> + <span class="string">&quot;*&quot;</span> + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/dede1b60.html" title="javaSE基础学习day01">https://susin3x.cn/posts/dede1b60.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javaSE/" rel="tag"><i class="fa fa-tag"></i> javaSE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/47d74ada.html" rel="next" title="javaSE基础学习day02">
+      javaSE基础学习day02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84DOS%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">常用的DOS命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">java语言的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java%E8%AF%AD%E8%A8%80%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">java语言的环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-JRE-JVM%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">3.1.</span> <span class="nav-text">JDK,JRE,JVM的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fpath"><span class="nav-number">3.2.</span> <span class="nav-text">配置环境变量path</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C-%E2%80%94%E2%80%94-HelloWorld"><span class="nav-number">4.</span> <span class="nav-text">开发体验 —— HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AAjava%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.1.</span> <span class="nav-text">第一个java程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">4.2.</span> <span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9A"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="susin3x"
+      src="https://img.susin3x.cn/images/202202281750409.png">
+  <p class="site-author-name" itemprop="name">susin3x</p>
+  <div class="site-description" itemprop="description">念念不忘必有回响</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1c2luM3g=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;susin3x"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJnVpbj0yMzg2MDQyMTU1JnNpdGU9cXEmbWVudT15ZXM=" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;2386042155&amp;site&#x3D;qq&amp;menu&#x3D;yes"><i class="fab fa-qq fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmFzaW4zeEAxNjMuY29t" title="E-Mail → mailto:asin3x@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">susin3x</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">湘ICP备2022004776号-1 </span>
+      <span class="post-meta-divider">|</span>
+      <img src="https://img.susin3x.cn/images/202203301541843.png" style="display: inline-block;"><span class="exturl" data-url="aHR0cDovL3d3dy5iZWlhbi5nb3YuY24vcG9ydGFsL3JlZ2lzdGVyU3lzdGVtSW5mbz9yZWNvcmRjb2RlPTQzMDMyMTAyMDAwMjQx">湘公网安备 43032102000241号 </span>
+  </div>
+
+        
+<div class="busuanzi-count">
+
+  <!--
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+
+  <script async src="https://img.susin3x.cn/js/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/1.0.1/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/dede1b60.html',]
+      });
+      });
+  </script>
+
+</body>
+</html>

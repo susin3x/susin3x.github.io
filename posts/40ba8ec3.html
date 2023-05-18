@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.susin3x.cn/images/202202281818594.png">
+  <link rel="mask-icon" href="https://img.susin3x.cn/images/202202281819953.png" color="#222">
+  <meta name="baidu-site-verification" content="code-gxBFH8JM9T">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="主要学习了数组和数组的算法，在学习数组内存解析后对数组的声明和初始化有更清楚的认识，数组存放的是null或地址值。二维数组可看成是一维数组array1作为另一个一维数组array2的元素而存在。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaSE基础学习day06">
+<meta property="og:url" content="https://susin3x.cn/posts/40ba8ec3.html">
+<meta property="og:site_name" content="Susin3x&#39;s Blog">
+<meta property="og:description" content="主要学习了数组和数组的算法，在学习数组内存解析后对数组的声明和初始化有更清楚的认识，数组存放的是null或地址值。二维数组可看成是一维数组array1作为另一个一维数组array2的元素而存在。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204121539696.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204121540327.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204082135985.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204112205054.gif">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204112305722.gif">
+<meta property="og:image" content="https://img.susin3x.cn/images/202204120008172.png">
+<meta property="article:published_time" content="2022-02-02T12:20:02.000Z">
+<meta property="article:modified_time" content="2023-05-14T03:11:00.893Z">
+<meta property="article:author" content="susin3x">
+<meta property="article:tag" content="javaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.susin3x.cn/images/202204121539696.svg">
+
+<link rel="canonical" href="https://susin3x.cn/posts/40ba8ec3.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>javaSE基础学习day06 | Susin3x's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Susin3x's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Susin3x's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-bibi">
+
+    <a href="/bb/" rel="section"><i class="fa fa-comment fa-fw"></i>说说</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fas fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/40ba8ec3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaSE基础学习day06
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-02 20:20:02" itemprop="dateCreated datePublished" datetime="2022-02-02T20:20:02+08:00">2022-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSE/" itemprop="url" rel="index"><span itemprop="name">javaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+            <div class="post-description">主要学习了数组和数组的算法，在学习数组内存解析后对数组的声明和初始化有更清楚的认识，数组存放的是null或地址值。二维数组可看成是一维数组array1作为另一个一维数组array2的元素而存在。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组(Array)，是多个相同类型数据按一定顺序排列的集合，并使用一个名字命名，并通过编号的方式对这些数据进行统一管理。</p>
+<ul>
+<li>数组本身是引用数据类型，数组元素可以是任何数据类型，包括基本数据类型和引用数据类型</li>
+<li>创建数组对象会在内存中开辟一整块连续的空间，而数组名中引用的是这块连续空间的首地址</li>
+<li>数组的长度一旦确定，就不能修改</li>
+<li>我们可以直接通过下标(或索引)的方式调用指定位置的元素，速度很快</li>
+</ul>
+<h3 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h3><h4 id="声明方式"><a href="#声明方式" class="headerlink" title="声明方式"></a>声明方式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type <span class="keyword">var</span>[] 或type[] <span class="keyword">var</span></span><br><span class="line"><span class="type">int</span> a[];</span><br><span class="line"><span class="type">int</span>[] a1;</span><br><span class="line"><span class="type">double</span> b[];</span><br><span class="line">String[] c; <span class="comment">//引用类型变量数组</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化方式"><a href="#初始化方式" class="headerlink" title="初始化方式"></a>初始化方式</h4><ul>
+<li>动态初始化：数组声明且为数组元素分配空间与赋值的操作分开进行</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>]; <span class="comment">//int[] arr;arr = new int[3];</span></span><br><span class="line">arr[<span class="number">0</span>] = <span class="number">3</span>;</span><br><span class="line">arr[<span class="number">1</span>] = <span class="number">9</span>;</span><br><span class="line">arr[<span class="number">2</span>] = <span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>静态初始化：在定义数组的同时就为数组元素分配空间并赋值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String names[] = &#123;<span class="string">&quot;李四光&quot;</span>,<span class="string">&quot;茅以升&quot;</span>,<span class="string">&quot;华罗庚&quot;</span>&#125;		 <span class="comment">//方式一</span></span><br><span class="line">String names[] = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;李四光&quot;</span>,<span class="string">&quot;茅以升&quot;</span>,<span class="string">&quot;华罗庚&quot;</span>&#125;         <span class="comment">//方式二</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="元素的引用"><a href="#元素的引用" class="headerlink" title="元素的引用"></a>元素的引用</h4><ul>
+<li><font color = red>定义并用运算符new为之分配空间后，才可以引用数组中的每个元素</font></li>
+<li>数组元素的引用方式：数组名[数组元素下标]</li>
+<li>数组的角标（或索引）从0开始的，到数组的长度-1结束</li>
+<li>每个数组都有一个属性length指明它的长度，例如：a.length 指明数组a的长度(元素个数)</li>
+</ul>
+<h4 id="默认初始化值"><a href="#默认初始化值" class="headerlink" title="默认初始化值"></a>默认初始化值</h4><table>
+<thead>
+<tr>
+<th align="center">数组元素类型</th>
+<th align="center">元素默认初始化值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">0L</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">0.0F</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">0.0</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">0或’\u0000’</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">引用数据类型</td>
+<td align="center">null</td>
+</tr>
+</tbody></table>
+<h4 id="内存解析"><a href="#内存解析" class="headerlink" title="内存解析"></a>内存解析</h4><p><img data-src="https://img.susin3x.cn/images/202204121539696.svg" alt="一维数据内存解析"></p>
+<h4 id="练习一"><a href="#练习一" class="headerlink" title="练习一"></a>练习一</h4><p>从键盘读入学生成绩，找出最高分，并输出学生成绩等级。成绩&gt;=最高分-10等级为’A’ ，成绩&gt;=最高分-20等级为’B’，成绩&gt;=最高分-30    等级为’C’，其余等级为’D’。提示：先读入学生人数，根据人数创建int数组，存放学生成绩。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayDemo1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 1.使用Scanner，读取学生个数</span></span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入学生人数：&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">number</span> <span class="operator">=</span> scan.nextInt();        </span><br><span class="line">        <span class="comment">// 2.创建数组，存储学生成绩：动态初始化</span></span><br><span class="line">        <span class="type">int</span> scores[] = <span class="keyword">new</span> <span class="title class_">int</span>[number];</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入&quot;</span> + number + <span class="string">&quot;个成绩&quot;</span>);        </span><br><span class="line">        <span class="comment">// 3.给数组中的元素赋值，并获取数组中元素的最大值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">maxScore</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; scores.length; i++) &#123;</span><br><span class="line">            scores[i] = scan.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (scores[i] &gt; maxScore) &#123;</span><br><span class="line">            	maxScore = scores[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;最高分是：&quot;</span> + maxScore);        </span><br><span class="line">        <span class="comment">// 4.根据每个学生成绩与最高分的差值，得到每个学生的等级，并输出等级和成绩</span></span><br><span class="line">        <span class="type">char</span> level;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; scores.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (maxScore - scores[i] &lt;= <span class="number">10</span>) &#123;</span><br><span class="line">            	level = <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (maxScore - scores[i] &lt;= <span class="number">20</span>) &#123;</span><br><span class="line">            	level = <span class="string">&#x27;B&#x27;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (maxScore - scores[i] &lt;= <span class="number">30</span>) &#123;</span><br><span class="line">            	level = <span class="string">&#x27;C&#x27;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            	level = <span class="string">&#x27;D&#x27;</span>;</span><br><span class="line">            &#125;        </span><br><span class="line">            System.out.println(<span class="string">&quot;student &quot;</span> + i + <span class="string">&quot; score is &quot;</span> + scores[i] + <span class="string">&quot; grade is &quot;</span> + level);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h3><p>数组属于引用数据类型，数组的元素也可以是引用数据类型。我们可以看成是一维数组array1又作为另一个一维数组array2的元素而存在，从数组底层的运行机制来看，其实没有多维数组。</p>
+<h4 id="声明和初始化"><a href="#声明和初始化" class="headerlink" title="声明和初始化"></a>声明和初始化</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;<span class="comment">//一维数组	</span></span><br><span class="line"><span class="type">int</span>[][] arr1 = <span class="keyword">new</span> <span class="title class_">int</span>[][]&#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>&#125;,&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;&#125;;<span class="comment">//静态初始化</span></span><br><span class="line">String[][] arr2 = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">3</span>][<span class="number">2</span>];<span class="comment">//动态初始化1</span></span><br><span class="line">String[][] arr3 = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">3</span>][];<span class="comment">//动态初始化2</span></span><br><span class="line"><span class="comment">//也是正确的写法：</span></span><br><span class="line"><span class="type">int</span>[] arr4[] = <span class="keyword">new</span> <span class="title class_">int</span>[][]&#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">10</span>&#125;,&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;&#125;;</span><br><span class="line"><span class="type">int</span>[] arr5[] = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>&#125;,&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;&#125;;<span class="comment">//类型推断</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>动态初始化</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">二维数组[][]：数组中的数组</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">格式1(动态初始化)：int[][] arr = new int[3][2];</td>
+</tr>
+<tr>
+<td align="left">定义了名称为arr的二维数组<br />二维数组中有3个一维数组<br />每个一维数组中有2个元素<br />一维数组的名称分别为arr[0]，arr[1]，arr[2]<br />给角标为[0][1]的数组元素赋值为78：arr[0][1] = 78;</td>
+</tr>
+<tr>
+<td align="left">格式2(动态初始化)：int[][] arr = new int[3][];</td>
+</tr>
+<tr>
+<td align="left">二维数组中有3个一维数组<br />每个一维数组都是默认初始化值null<br />可以对这三个一维数组分别进行初始化<br />arr[0] = new int [3];     arr[1] = new int[1];     arr[2] = new int[2];<br />注：int[][] arr = new int[][3];//非法</td>
+</tr>
+</tbody></table>
+<ul>
+<li>静态初始化</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">格式3(静态初始化)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">定义一个名称为arr的二维数组，二维数组中有三个一维数组<br />每一个一维数组中具体元素也已初始化<br />第一个一维数组arr[0] = {3,8,2};<br />第二个一维数组arr[1] = {2,7};<br />第三个一维数组arr[2] = {9,0,1,6};<br />第三个一维数组的长度表示方式：arr[2].length;</td>
+</tr>
+<tr>
+<td align="left">注意特殊写法情况：int[] x,y[];x是一维数组，y是二维数组<br />java中多维数组不必都是规则矩阵形式</td>
+</tr>
+</tbody></table>
+<h4 id="数组的遍历"><a href="#数组的遍历" class="headerlink" title="数组的遍历"></a>数组的遍历</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; arr4.length;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>;j &lt; arr4[i].length;j++)&#123;</span><br><span class="line">        System.out.print(arr4[i][j] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="默认初始化值-1"><a href="#默认初始化值-1" class="headerlink" title="默认初始化值"></a>默认初始化值</h4><ul>
+<li>针对初始化方式一，如int[][] arr = new int[4][3]；则arr数组外层元素的初始化值为地址值，内层元素的初始化值与一维数组初始化情况相同。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> arr[] = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br><span class="line">System.out.println(arr);<span class="comment">// [I@15db9742</span></span><br><span class="line"><span class="type">int</span> arr1[][] = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>][<span class="number">3</span>];</span><br><span class="line">System.out.println(arr1);<span class="comment">// [[I@6d06d69c</span></span><br><span class="line">System.out.println(arr1[<span class="number">0</span>]);<span class="comment">// [I@7852e922</span></span><br><span class="line">System.out.println(arr1[<span class="number">0</span>][<span class="number">0</span>]);<span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>针对初始化方式二，如int[][] arr = new int[4][]；则arr数组外层元素的初始化值为null；内层元素的初始化值不能调用，否则报错。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span>[][] arr4 = <span class="keyword">new</span> <span class="title class_">double</span>[<span class="number">4</span>][];</span><br><span class="line">System.out.println(arr4[<span class="number">1</span>]);<span class="comment">// null</span></span><br><span class="line">System.out.println(arr4[<span class="number">1</span>][<span class="number">0</span>]);<span class="comment">//报错NullPointerException空指针异常</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="内存解析-1"><a href="#内存解析-1" class="headerlink" title="内存解析"></a>内存解析</h4><p><img data-src="https://img.susin3x.cn/images/202204121540327.svg" alt="二维数组内存解析"></p>
+<h4 id="练习二"><a href="#练习二" class="headerlink" title="练习二"></a>练习二</h4><p>使用二维数组打印一个 10 行杨辉三角形；要求：1.第一行有 1 个元素, 第 n 行有 n 个元素；2.每一行的第一个元素和最后一个元素都是 1；3.从第三行开始, 对于非第一个元素和最后一个元素的元素。即：yangHui[i][j] = yangHui[i-1][j-1] + yangHui[i-1][j];运行结果如下：</p>
+<p><img data-src="https://img.susin3x.cn/images/202204082135985.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayDemo2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">int</span>[][] yangHui = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">10</span>][];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; yangHui.length;i++)&#123;</span><br><span class="line">            yangHui[i] = <span class="keyword">new</span> <span class="title class_">yangHui</span>[i + <span class="number">1</span>];</span><br><span class="line">            yangHui[i][<span class="number">0</span>] = yangHui[i][i] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>;j &lt; yangHui[i].length - <span class="number">1</span>;j++)&#123;</span><br><span class="line">                yangHui[i][j] = yangHui[i-<span class="number">1</span>][j-<span class="number">1</span>] + yangHui[i-<span class="number">1</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>;j &lt; yangHui[i].length;j++)&#123;</span><br><span class="line">                System.out.print(yangHui[i][j] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组的常见算法"><a href="#数组的常见算法" class="headerlink" title="数组的常见算法"></a>数组的常见算法</h3><ul>
+<li>数组元素的赋值(杨辉三角、回形数等)</li>
+<li>求数值型数组中元素的最大值、最小值、平均数、总和等</li>
+<li>数组的复制、反转、查找(线性查找、二分法查找)</li>
+<li>数组元素的排序算法</li>
+</ul>
+<h4 id="练习三"><a href="#练习三" class="headerlink" title="练习三"></a>练习三</h4><p>定义一个int型的一维数组，包含10个元素，分别赋一些随机的整数，然后求出所有元素的最大值，最小值，和值，平均值，并输出出来。要求：所有随机数都是两位数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayDemo3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">10</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">            arr[i] = (<span class="type">int</span>)(Math.random() * <span class="number">90</span>) + <span class="number">10</span>;</span><br><span class="line">            System.out.print(arr[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="type">int</span> maxValue,minValue;</span><br><span class="line">        maxValue = minValue = arr[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(maxValue &lt; arr[i])&#123;</span><br><span class="line">                maxValue = arr[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(minValue &gt; arr[i])&#123;</span><br><span class="line">                minValue = arr[i];</span><br><span class="line">            &#125;</span><br><span class="line">            sum += arr[i];  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">ave</span> <span class="operator">=</span> sum / arr.length;</span><br><span class="line">        System.out.println(<span class="string">&quot;所有元素的最大值是：&quot;</span> + maxValue +<span class="string">&quot;;最小值是：&quot;</span> + minValue + <span class="string">&quot;；和值是：&quot;</span> + sum + <span class="string">&quot;;平均值是：&quot;</span> + ave);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="练习四"><a href="#练习四" class="headerlink" title="练习四"></a>练习四</h4><p>数组的复制、反转、查找（线性查找、二分法查找）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayDemo4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        String[] arr = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;JJ&quot;</span>,<span class="string">&quot;DD&quot;</span>,<span class="string">&quot;MM&quot;</span>,<span class="string">&quot;BB&quot;</span>,<span class="string">&quot;GG&quot;</span>,<span class="string">&quot;AA&quot;</span>&#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//数组的复制(区别于数组变量的 赋值：arr1 = arr)</span></span><br><span class="line">        String[] arr1 = <span class="keyword">new</span> <span class="title class_">String</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr1.length;i++)&#123;</span><br><span class="line">            arr1[i] = arr[i];</span><br><span class="line">            System.out.print(arr1[i] + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//数组的反转</span></span><br><span class="line">        <span class="comment">//法1</span></span><br><span class="line">        String temp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; arr.length / <span class="number">2</span>;i++)&#123;<span class="comment">//一定要除2，不然会换两次又换 回去</span></span><br><span class="line">            temp = arr[i];</span><br><span class="line">            arr[i] = arr[arr.length - i -<span class="number">1</span>];</span><br><span class="line">            arr[arr.length - i -<span class="number">1</span>] = temp;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//法2</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>,j = arr.length-<span class="number">1</span>;i &lt; j;i++,j--)&#123;</span><br><span class="line">            temp = arr[i];</span><br><span class="line">            arr[i] = arr[j];</span><br><span class="line">            arr[j] = temp;</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="comment">//查找(或搜索)</span></span><br><span class="line">        <span class="comment">//线性查找：</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">dest</span> <span class="operator">=</span> <span class="string">&quot;CC&quot;</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isFlag</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dest.equals(arr[i]))&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;BB在数组arr的位置是：&quot;</span> + (i+<span class="number">1</span>));</span><br><span class="line">                isFlag = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(isFlag == <span class="literal">true</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;很遗憾，没有找到哦！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//二分法查找：：要求查找的数组必须有序</span></span><br><span class="line">        <span class="type">int</span>[] arr3 = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;-<span class="number">98</span>,-<span class="number">34</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">54</span>,<span class="number">66</span>,<span class="number">79</span>,<span class="number">105</span>,<span class="number">210</span>,<span class="number">333</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">dest1</span> <span class="operator">=</span> -<span class="number">34</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">head</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//首索引位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> arr3.length - <span class="number">1</span>;<span class="comment">//尾索引位置</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isFlag1</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(head &lt;= end)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">middle</span> <span class="operator">=</span> (head + end) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(dest1 == arr3[middle])&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;找到了指定元素，位置为：&quot;</span> + middle);</span><br><span class="line">                isFlag1 = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr3[middle] &gt; dest1)&#123;</span><br><span class="line">                end = middle -<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;<span class="comment">//arr3[middle] &lt; number</span></span><br><span class="line">                head = middle + <span class="number">1</span>;</span><br><span class="line">            &#125;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(isFlag1)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;很遗憾，没有找到的啦 &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组元素的排序算法"><a href="#数组元素的排序算法" class="headerlink" title="数组元素的排序算法"></a>数组元素的排序算法</h4><p>假设含有n个记录的序列为{R1，R2，…,Rn}，其相应的关键字序列为{K1，K2，…,Kn}。将这些记录重新排序{Ri1,Ri2,…,Rin}，使得相应的关键字值满足条Ki1&lt;=Ki2&lt;=…&lt;=Kin，这样的一种操作称为排序。通常来说，排序的目的是快速查找。衡量排序算法的优劣有以下三点：</p>
+<ul>
+<li>时间复杂度：分析关键字的比较次数和记录的移动次数</li>
+<li>空间复杂度：分析排序算法中需要多少辅助内存</li>
+<li>稳定性：若两个记录A和B的关键字值相等，排序后的先后次序保持不变，则这种排序是稳定的</li>
+</ul>
+<h5 id="排序算法分类"><a href="#排序算法分类" class="headerlink" title="排序算法分类"></a>排序算法分类</h5><ul>
+<li>内部排序：整个排序过程不需要借助于外部存储器（如磁盘等），所有排序操作都在内存中完成。</li>
+<li>外部排序：参与排序的数据非常多，计算机无法把整个排序过程放在内存中完成，必须借助于外部存储器（如磁盘）。外部排序最常见的是多路归并排序，可认为外部排序是由多次内部排序组成。</li>
+</ul>
+<p>十大内部排序算法：选择排序（直接选择排序、<font color = orange>堆排序</font>）、交换排序<font color = red>（冒泡排序、快速排序）</font>、插入排序（直接插入排序、折半插入排序、Shell希尔排序）、<font color = orange>归并排序</font>、桶式排序、基数排序。</p>
+<p>算法的五大特征：</p>
+<table>
+<thead>
+<tr>
+<th align="center">特征</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">输入（Input）</td>
+<td align="center">有0个或多个输入数据，这些输入必须有清楚的描述和定义</td>
+</tr>
+<tr>
+<td align="center">输出（Output）</td>
+<td align="center">至少有 1 个或多个输出结果，不可以没有输出结果</td>
+</tr>
+<tr>
+<td align="center">有穷性（有限性，Finiteness）</td>
+<td align="center">算法在有限的步骤之后会自动结束而不会无限循环，<br />并且每一个步骤可以在可接受的时间内完成</td>
+</tr>
+<tr>
+<td align="center">确定性（明确性，Definiteness）</td>
+<td align="center">算法中的每一步都有确定的含义，不会出现二义性</td>
+</tr>
+<tr>
+<td align="center">可行性（有效性，Effectiveness）</td>
+<td align="center">算法的每一步都是清楚且可行的，能让用户用纸笔计算而求出答案</td>
+</tr>
+</tbody></table>
+<p>满足确定性的算法称为确定性算法。现在人们关注更广泛的概念，例如考虑各种非确定性的算法，如并行算法、概率算法等。另外也关注不要求终止的计算描述，这种描述有时被称为过程（procedure）。</p>
+<h5 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h5><p>冒泡排序是一种简单的交换排序算法，以升序排序为例，其核心思想是：</p>
+<ul>
+<li>从第一个元素开始，比较相邻的两个元素。如果第一个比第二个大，则进行交换。</li>
+<li>对每对相邻元素执行同样的比较操作，从开始第一对到结尾最后一对，最后的元素会是最大的数。</li>
+<li>除了每次排序得到的最后一个元素，对剩余元素重复以上步骤，直到没有任何元素需要比较为止。</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202204112205054.gif" alt="冒泡排序"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用冒泡排序，实现如下的数组从小到大排序。</span></span><br><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;<span class="number">3</span>,<span class="number">44</span>,<span class="number">38</span>,<span class="number">5</span>,<span class="number">47</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">27</span>,<span class="number">2</span>,<span class="number">46</span>,<span class="number">4</span>,<span class="number">19</span>,<span class="number">50</span>,<span class="number">48</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">            arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">            arr[j + <span class="number">1</span>] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h5><ul>
+<li>从数列中挑出一个元素，称为“基准”（pivot）。重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区结束之后，该基准就处于数列的中间位置。这个称为分区（partition）操作。</li>
+<li>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+<li>递归的最底部情形是数列的大小是零或一，也就是已经被排序好了。虽然一直递归下去，但是这个算法总会结束，因为在每次的迭代（iteration）中，它至少会把一个元素摆到它最后的位置去。</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202204112305722.gif" alt="快速排序"></p>
+<p>各种排序算法性能对比如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">排序类型</th>
+<th align="center">平均情况</th>
+<th align="center">最好情况</th>
+<th align="center">最坏情况</th>
+<th align="center">辅助空间</th>
+<th align="center">稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">冒泡排序</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">选择排序</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">直接插入排序</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">折半插入排序</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">希尔排序</td>
+<td align="center">O(n^1.3)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">归并排序</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(n)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">快速排序</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">堆排序</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(nlog₂n)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">计数排序</td>
+<td align="center">O(n+k)</td>
+<td align="center">O(n+k)</td>
+<td align="center">O(n+k)</td>
+<td align="center">O(n+k)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">桶排序</td>
+<td align="center">O(n+k)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n+k)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">基数排序</td>
+<td align="center">O(n*k)</td>
+<td align="center">O(n*k)</td>
+<td align="center">O(n*k)</td>
+<td align="center">O(n+k)</td>
+<td align="center">稳定</td>
+</tr>
+</tbody></table>
+<p>各种内部排序方法性能比较：</p>
+<p>(1)从平均时间而言：快速排序最佳，但在最坏情况下时间性能不如堆排序和归并排序。<br>(2)从算法简单性看：由于选择排序、直接插入排序和冒泡排序的算法比较简单，将其认为是简单算法。对于Shell排序、堆排序、快速排序和归并排序算法，其算法比较复杂，认为是复杂排序。<br>(3)从稳定性看：冒泡排序、直接插入排序和归并排序稳定。选择排序、快速排序、 希尔排序不稳定。<br>(4)从待排序的记录数n的大小看：n较小时，宜采用简单排序；而n较大时宜采用改进排序。</p>
+<p>排序算法的选择：</p>
+<p>(1)若n较小(如n≤50)，可采用直接插入或直接选择排序。当记录规模较小时，直接插入排序较好；否则因为直接选择移动的记录数少于直接插入，应选直接选择排序为宜。<br>(2)若文件初始状态基本有序(指正序)，则应选用直接插入、冒泡或随机的快速排序为宜。<br>(3)若n较大，则应采用时间复杂度为O(nlgn)的排序方法：快速排序、堆排序或归并排序。</p>
+<h3 id="Arrays工具类的使用"><a href="#Arrays工具类的使用" class="headerlink" title="Arrays工具类的使用"></a>Arrays工具类的使用</h3><p>java.util.Arrays类即为操作数组的工具类，包含了用来操作数组（比如排序和搜索）的各种方法。</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">boolean equals(int[] a,int[] b)</td>
+<td align="center">判断两个数组是否相等</td>
+</tr>
+<tr>
+<td align="center">String toString(int[] a)</td>
+<td align="center">输出数组信息</td>
+</tr>
+<tr>
+<td align="center">void fill(int[] a,int val)</td>
+<td align="center">将指定值填充到数组之中</td>
+</tr>
+<tr>
+<td align="center">void sort(int[] a)</td>
+<td align="center">对数组进行排序</td>
+</tr>
+<tr>
+<td align="center">int binarySearch(int[] a,int key)</td>
+<td align="center">对排序后的数组进行二分法检索指定的值</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. boolean equals(int[] a,int[] b) 判断两个数组是否相等。</span></span><br><span class="line"><span class="type">int</span>[] arr1 = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="type">int</span>[] arr2 = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEquals</span> <span class="operator">=</span> Arrays.equals(arr1,arr2);</span><br><span class="line">System.out.println(isEquals);<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2. String toString(int[] a) 输出数组信息。</span></span><br><span class="line">System.out.println(Arrays.toString(arr1));<span class="comment">//[1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3. void fill(int[] a,int val) 将指定值填充到数组之中。</span></span><br><span class="line">Arrays.fill(arr1,<span class="number">10</span>);</span><br><span class="line">System.out.println(Arrays.toString(arr1));<span class="comment">//[10, 10, 10, 10]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//4. void sort(int[] a) 对数组进行排序。</span></span><br><span class="line">Arrays.sort(arr2);</span><br><span class="line">System.out.println(Arrays.toString(arr2));<span class="comment">//[1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//5. int binarySearch(int[] a,int key) 对排序后的数组进行二分法检索指定的值。</span></span><br><span class="line"><span class="type">int</span>[] arr3 = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;-<span class="number">98</span>,-<span class="number">34</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">54</span>,<span class="number">66</span>,<span class="number">79</span>,<span class="number">105</span>,<span class="number">210</span>,<span class="number">333</span>&#125;;</span><br><span class="line"><span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> Arrays.binarySearch(arr3,<span class="number">211</span>);<span class="comment">//未找到</span></span><br><span class="line"><span class="keyword">if</span>(index &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">    System.out.println(index);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;未找到&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="数组使用中的常见异常"><a href="#数组使用中的常见异常" class="headerlink" title="数组使用中的常见异常"></a>数组使用中的常见异常</h3><p>编译时不报错，运行时报错，一旦程序出现异常就终止执行。</p>
+<p><img data-src="https://img.susin3x.cn/images/202204120008172.png"></p>
+<table>
+<thead>
+<tr>
+<th align="left"><font color = red>数组脚标越界异常(ArrayIndexOutOfBoundsException)</font></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">int[] arr1 = new int[2];<br/>System.out.println(arr1[2]);//右边越界<br/>System.out.println(arr1[-1]);//左边越界<br/>访问到了数组中的不存在的脚标时发生。</td>
+</tr>
+<tr>
+<td align="left"><font color = red><strong>空指针异常(NullPointerException)</strong></font></td>
+</tr>
+<tr>
+<td align="left">int[] arr2 = new int[]{1,2,3};<br />arr2 = null;<br />System.out.println(arr2[0]);//空指针异常<br />arr引用没有指向实体，却在操作实体中的元素时。</td>
+</tr>
+<tr>
+<td align="left">String[] arr3 = new String[]{“AA”,“BB”,“CC”};<br />arr3[0] = null;<br />System.out.println(arr3[0].toString());//空指针异常，输出arr3[0]的内容</td>
+</tr>
+<tr>
+<td align="left">int[][] arr4 = new int[3][];<br />System.out.println(arr4);//地址值<br />System.out.println(arr4[0]);//null<br />System.out.println(arr4[0][0]);//空指针异常</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/40ba8ec3.html" title="javaSE基础学习day06">https://susin3x.cn/posts/40ba8ec3.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javaSE/" rel="tag"><i class="fa fa-tag"></i> javaSE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d9b3df79.html" rel="prev" title="javaSE基础学习day05">
+      <i class="fa fa-chevron-left"></i> javaSE基础学习day05
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/37bdbe55.html" rel="next" title="javaSE基础学习day07">
+      javaSE基础学习day07 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.</span> <span class="nav-text">一维数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">声明方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">初始化方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">元素的引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96%E5%80%BC"><span class="nav-number">1.1.4.</span> <span class="nav-text">默认初始化值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.5.</span> <span class="nav-text">内存解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E4%B8%80"><span class="nav-number">1.1.6.</span> <span class="nav-text">练习一</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.2.</span> <span class="nav-text">二维数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">声明和初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">数组的遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96%E5%80%BC-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">默认初始化值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">内存解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E4%BA%8C"><span class="nav-number">1.2.5.</span> <span class="nav-text">练习二</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">数组的常见算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E4%B8%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">练习三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E5%9B%9B"><span class="nav-number">1.3.2.</span> <span class="nav-text">练习四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">数组元素的排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">排序算法分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">快速排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrays%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">Arrays工具类的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.</span> <span class="nav-text">数组使用中的常见异常</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="susin3x"
+      src="https://img.susin3x.cn/images/202202281750409.png">
+  <p class="site-author-name" itemprop="name">susin3x</p>
+  <div class="site-description" itemprop="description">念念不忘必有回响</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1c2luM3g=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;susin3x"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJnVpbj0yMzg2MDQyMTU1JnNpdGU9cXEmbWVudT15ZXM=" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;2386042155&amp;site&#x3D;qq&amp;menu&#x3D;yes"><i class="fab fa-qq fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmFzaW4zeEAxNjMuY29t" title="E-Mail → mailto:asin3x@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">susin3x</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">湘ICP备2022004776号-1 </span>
+      <span class="post-meta-divider">|</span>
+      <img src="https://img.susin3x.cn/images/202203301541843.png" style="display: inline-block;"><span class="exturl" data-url="aHR0cDovL3d3dy5iZWlhbi5nb3YuY24vcG9ydGFsL3JlZ2lzdGVyU3lzdGVtSW5mbz9yZWNvcmRjb2RlPTQzMDMyMTAyMDAwMjQx">湘公网安备 43032102000241号 </span>
+  </div>
+
+        
+<div class="busuanzi-count">
+
+  <!--
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+
+  <script async src="https://img.susin3x.cn/js/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/1.0.1/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/40ba8ec3.html',]
+      });
+      });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.susin3x.cn/images/202202281818594.png">
+  <link rel="mask-icon" href="https://img.susin3x.cn/images/202202281819953.png" color="#222">
+  <meta name="baidu-site-verification" content="code-gxBFH8JM9T">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="最近电脑频繁蓝屏，蓝屏代码是WHEA_UNCORRECTABLE_ERROR(0x00000124)。因为进度一直卡在0%，就没有收集到蓝屏日志文件，于是决定重装了系统，但重装后依然蓝屏。用AIDA64大体检测是否有硬件故障，CPU，硬盘和内存都没啥问题，就是一直报CPU过热，应该是要清灰涂硅脂了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小米笔记本Pro15.6蓝屏——重装系统，拆机清灰加固态">
+<meta property="og:url" content="https://susin3x.cn/posts/fdfe12a3.html">
+<meta property="og:site_name" content="Susin3x&#39;s Blog">
+<meta property="og:description" content="最近电脑频繁蓝屏，蓝屏代码是WHEA_UNCORRECTABLE_ERROR(0x00000124)。因为进度一直卡在0%，就没有收集到蓝屏日志文件，于是决定重装了系统，但重装后依然蓝屏。用AIDA64大体检测是否有硬件故障，CPU，硬盘和内存都没啥问题，就是一直报CPU过热，应该是要清灰涂硅脂了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181048710.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181552366.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181607846.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181617641.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181730362.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181745927.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181745893.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181838466.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181730362.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181923416.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181935313.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305181949265.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182010668.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182015622.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182037024.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182037793.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182048835.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182049524.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182049707.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182049909.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182057602.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182057427.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182057712.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182112650.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182132471.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182144949.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182146252.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182153375.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182157153.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182204758.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182210980.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182218115.png">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182222892.jpg">
+<meta property="og:image" content="https://img.susin3x.cn//images/202305182222692.jpg">
+<meta property="article:published_time" content="2023-05-18T08:59:00.000Z">
+<meta property="article:modified_time" content="2023-05-18T14:23:09.045Z">
+<meta property="article:author" content="susin3x">
+<meta property="article:tag" content="重装系统">
+<meta property="article:tag" content="拆机清灰">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.susin3x.cn//images/202305181048710.jpg">
+
+<link rel="canonical" href="https://susin3x.cn/posts/fdfe12a3.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>小米笔记本Pro15.6蓝屏——重装系统，拆机清灰加固态 | Susin3x's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Susin3x's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Susin3x's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-bibi">
+
+    <a href="/bb/" rel="section"><i class="fa fa-comment fa-fw"></i>说说</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fas fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/fdfe12a3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          小米笔记本Pro15.6蓝屏——重装系统，拆机清灰加固态
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-18 16:59:00" itemprop="dateCreated datePublished" datetime="2023-05-18T16:59:00+08:00">2023-05-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">学习分享</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">最近电脑频繁蓝屏，蓝屏代码是WHEA_UNCORRECTABLE_ERROR(0x00000124)。因为进度一直卡在0%，就没有收集到蓝屏日志文件，于是决定重装了系统，但重装后依然蓝屏。用AIDA64大体检测是否有硬件故障，CPU，硬盘和内存都没啥问题，就是一直报CPU过热，应该是要清灰涂硅脂了。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>我的蓝屏摸索解决过程如下，下次就可以跟帖解决了 ╮(╯_╰)╭ ，我18年双十一买的这台小米笔记本，买回来之后没有清过灰，这次拆机顺便还加了一条固态硬盘，记录一下，免得下次忘记咋弄了。。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181048710.jpg"></p>
+<p>从<span class="exturl" data-url="aHR0cDovL3d3dy53aW4xMHpqLm5ldC93aW4xMGppYW9jaGVuZy8xMjkyOC5odG1s">蓝屏代码大全<i class="fa fa-external-link-alt"></i></span>找到上图的蓝屏代码，写得很模糊，也不知道具体是哪里出问题了。</p>
+<div class="note info simple">
+            <p>此BSOD表示发生了致命的硬件错误。使用Windows硬件错误体系结构(WHEA)提供的错误数据。BSOD错误代码0x00000124也可能在同一蓝色屏幕上显示<br><font color = red>“WHEA_UNCORRECTABLE_ERROR”</font>。</p>
+          </div>
+
+<p>跟着这个<span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMUo4NHkxcDdieS8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smdmRfc291cmNlPTViNWZkNTFlYzljN2YyYTcwZWYxNDhmYTE2OTljMDYx">up主<i class="fa fa-external-link-alt"></i></span>排查蓝屏导致的问题，先排除软件方面上的问题，再排除硬件。因为没有收集到蓝屏日志文件，所以也没法判断是普通软件出问题，还是系统出问题了。于是先装个纯净的系统，看是否是系统出问题了（PS：重装能解决99%的问题，重买能解决100%的问题･֊･ ）。</p>
+<h2 id="重装系统"><a href="#重装系统" class="headerlink" title="重装系统"></a>重装系统</h2><p>重装系统有两个蛮有用的视频：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMVNLNDExbjdYaS8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smdmRfc291cmNlPTViNWZkNTFlYzljN2YyYTcwZWYxNDhmYTE2OTljMDYx">【装机教程】三种方法，手把手教你重装系统！_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMURKNDExRDc5eS8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smdmRfc291cmNlPTViNWZkNTFlYzljN2YyYTcwZWYxNDhmYTE2OTljMDYx">【装机教程】超详细WIN10系统安装教程，官方ISO直装与PE两种方法教程_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="方法一-系统U盘安装"><a href="#方法一-系统U盘安装" class="headerlink" title="方法一(系统U盘安装)"></a>方法一(系统U盘安装)</h3><p>先去<span class="exturl" data-url="aHR0cHM6Ly9tc2RuLml0ZWxseW91LmNuLw==">MSDN<i class="fa fa-external-link-alt"></i></span>下载win10 1909版本的系统镜像，也可以去<span class="exturl" data-url="aHR0cHM6Ly9uZXh0Lml0ZWxseW91LmNuL09yaWdpbmFsL0luZGV4">MSDN新站<i class="fa fa-external-link-alt"></i></span>更高版本的win10，我准备下个专业版，选商业版和零售版都OK，复制ed2k链接去迅雷下载就行了。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181552366.png"></p>
+<p>下载<span class="exturl" data-url="aHR0cDovL3J1ZnVzLmllL3poLw==">rufus<i class="fa fa-external-link-alt"></i></span>，这个下载链接我找了好久，实在不好找啊，下载后即开即用，无需安装。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181607846.png"></p>
+<p>选择刚才下载的系统镜像，其他选项默认即可，点击开始，将系统镜像刻录到U盘。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181617641.png"></p>
+<p>刻录完成后，<font color = red><strong>重启电脑</strong></font>，在开机前一直连按F12(小米笔记本开机快速启动项的快捷键是F12)。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181730362.jpg"></p>
+<p>选择下面的<font color = red><strong>EFI USB Device</strong></font>启动项后，回车就进入系统安装的界面了。如何没有什么重要数据或者数据已经备份后，分区的时候最好<font color  = red><strong>删除</strong></font>所有分区，因为重做系统还会创建新的分区，然后再重新分区。</p>
+<h3 id="方法二-PE安装"><a href="#方法二-PE安装" class="headerlink" title="方法二(PE安装)"></a>方法二(PE安装)</h3><p>下载<span class="exturl" data-url="aHR0cHM6Ly93d3cud2VwZS5jb20uY24vZG93bmxvYWQuaHRtbA==">微PE<i class="fa fa-external-link-alt"></i></span>后，双击微PE安装程序exe，在右下角选择安装到U盘。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181745927.png"></p>
+<p>格式改为NTFS，给U盘重命名为微PE工具箱，勾选“包含DOS工具箱”和“个性化盘符图标”。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181745893.png"></p>
+<p>将PE安装进U盘后，打开名为“微PE工具箱”的U盘，将下载好的系统镜像复制到U盘。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181838466.png"></p>
+<p>复制完成后，<font color = red><strong>重启电脑</strong></font>，在开机前一直连按F12(小米笔记本开机快速启动项的快捷键是F12)。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181730362.jpg"></p>
+<p>选择下面的<font color = red><strong>EFI USB Device</strong></font>启动项后，回车就进入PE系统界面了，打开桌面的驱动精灵，进行磁盘分区，在要安装系统的磁盘上右键选择“删除所有分区”，左上角点击“保存更改”。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181923416.jpg"></p>
+<p>在要安装系统的磁盘上右键选择“快速分区”，根据自己的需要进行分区，C盘推荐分出60G到100G的空间，<font color = red><strong>注意一定要勾选上“对齐分区到此扇区数的整数倍”</strong></font>。这就是固态硬盘的4K对齐，不勾上的话，不仅会损失固态硬盘的性能，还会降低固态硬盘的使用寿命。点击“确定”，完成分区。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181935313.png"></p>
+<p>点击桌面的此电脑，打开名为“微PE工具箱”的U盘，打开系统镜像所在目录，右键所要安装的系统镜像，点击“装载”，双击“setup.exe”，就进入系统安装的界面了。在分区界面选择将系统安装到之前分好区的80G的C盘中，等待win10安装程序自动走完流程。之后会进入win10初始化的主界面，进行基本设置，网络设置和账户设置后，win10系统就安装成功了🎉🎉🎉。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305181949265.png"></p>
+<h2 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h2><p>win10系统安装成功后，要补齐各个硬件的驱动程序，进入<span class="exturl" data-url="aHR0cHM6Ly93d3cubWkuY29tL3NlcnZpY2Uvbm90ZWJvb2svZHJpdmVycw==">小米驱动下载官网<i class="fa fa-external-link-alt"></i></span>，输入SN的前5位数字（前五位数字代表笔记本型号）：<font color = red><strong>16773</strong></font>（小米笔记本Pro15.6的型号），下载驱动整合包。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182010668.png"></p>
+<p>安装好驱动安装包中所有的驱动即可。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182015622.png"></p>
+<h2 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h2><p>重装系统并且安装好驱动后，依然出现蓝屏现象，蓝屏重启可能是CPU，内存或者硬盘出现问题。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182037024.jpg"></p>
+<p>用AIDA64检测硬件故障，打开AIDA64，点击上方的工具，选择“系统稳定性测试”，选择所要测试的硬件，点击“Start”开始进行压力测试。如果电脑硬件有故障的话，是没有办法通过压力测试的，必然就会报错，报错会在状态栏弹出一个<font color = red>红条</font>的错误提示，同时压力测试会被中断。如何一时半会测不出来，跑个5到10分钟左右就可以了，点击“Stop”停止压力测试。不要进行太长时间的压力测试，毕竟满负荷的工作还是很伤电脑的。通过AIDA64可以粗略的测一下硬件是否有故障。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182037793.png"></p>
+<p><img data-src="https://img.susin3x.cn//images/202305182048835.png"></p>
+<p><img data-src="https://img.susin3x.cn//images/202305182049524.png"></p>
+<p><img data-src="https://img.susin3x.cn//images/202305182049707.png"></p>
+<p><img data-src="https://img.susin3x.cn//images/202305182049909.png"></p>
+<p>使用windows内存诊断工具检测内存，无异常。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182057602.jpg"></p>
+<p>使用CrystalDiskInfo和AS SSD检测固态硬盘，无异常。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182057427.jpg"></p>
+<p><img data-src="https://img.susin3x.cn//images/202305182057712.jpg"></p>
+<p>没啥硬件问题，就是一直抛出“CPU过热”，于是决定拆机清灰涂硅脂。</p>
+<h2 id="拆机清灰"><a href="#拆机清灰" class="headerlink" title="拆机清灰"></a>拆机清灰</h2><p>拆机清灰有两个蛮有用的视频：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMW1VNHkxZTdHMy8/c3BtX2lkX2Zyb209MzMzLjEwMDcudG9wX3JpZ2h0X2Jhcl93aW5kb3dfY3VzdG9tX2NvbGxlY3Rpb24uY29udGVudC5jbGljayZ2ZF9zb3VyY2U9NWI1ZmQ1MWVjOWM3ZjJhNzBlZjE0OGZhMTY5OWMwNjE=">小米笔记本Pro15.6拆机清灰详细图解_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMXhMNDExcDdUQi8/c3BtX2lkX2Zyb209MzMzLjEwMDcudG9wX3JpZ2h0X2Jhcl93aW5kb3dfY3VzdG9tX2NvbGxlY3Rpb24uY29udGVudC5jbGljayZ2ZF9zb3VyY2U9NWI1ZmQ1MWVjOWM3ZjJhNzBlZjE0OGZhMTY5OWMwNjE=">小米笔记本Pro15.6拆机清灰_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="拆机准备"><a href="#拆机准备" class="headerlink" title="拆机准备"></a>拆机准备</h3><p><strong>螺丝刀：</strong>十字形2.0 * 25mm，六角形T5 * 25mm（某多多￥6）</p>
+<p><strong>清灰工具：</strong>【毛刷，三角翘片，撬棒，皮吹】（某宝￥7），实测翘片和撬棒要弄很久，可能吸盘好用一些，但还是要注意不要“大力出奇迹”，把后盖整变形了就很尬尴了。</p>
+<p><strong>硅脂：</strong>利民TF8（硅脂选择推荐：<span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMVRZNDExSDdTQy8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smdmRfc291cmNlPTViNWZkNTFlYzljN2YyYTcwZWYxNDhmYTE2OTljMDYx">18款散热硅脂大横评！看看哪个是YYDS！_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span>）</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182112650.png"></p>
+<p>从测评结果来看，利民TF7和信越7921都挺不错的。但信越7921是分装售卖的，很难买到真货，而且对新手小白不友好，很难涂抹均匀。我还是选择了利民TF8（京东自营1.2g花了￥24.9😄）。</p>
+<p><strong>固态硬盘：</strong>三星980 | NVME | PCLE3.0 | 500G（某东￥269）</p>
+<p>固态硬盘选择推荐如下，B站和知乎还有很多视频和帖子关于固态硬盘选择的推荐，可以多看看之后再选购。本来我想着支持国产的致态TiPlus5000(512G的￥259)，但固态大厂三星的980和TiPlus5000差不多价格，果断心动了~，至于0E事件，时不时监控一下固态的状况，应该就没啥大问题吧。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182132471.jpg"></p>
+<h3 id="清灰"><a href="#清灰" class="headerlink" title="清灰"></a>清灰</h3><p>首先拆后盖螺丝，然后用三角翘片和硬卡片撬开后盖。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182144949.png"></p>
+<p>内部结构如下，先断总电源，左风扇和右风扇电源，断电之后防静电：按住电源键20秒以上。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182146252.jpg"></p>
+<p>先拆下左风扇，用十字螺丝刀取下螺丝，打开风扇外盖，用毛刷扫干净风扇上的灰。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182153375.png"></p>
+<p>左风扇（已清灰）和右风扇（未清灰）对比如下：</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182157153.jpg"></p>
+<h3 id="涂硅脂（未完成）"><a href="#涂硅脂（未完成）" class="headerlink" title="涂硅脂（未完成）"></a><font color = red>涂硅脂（未完成）</font></h3><p>因为我的不小心，CPU盖子上的三个螺丝（1号，3号和5号）被我拧滑丝了😓，所以没法拆下CPU盖子和右风扇（右风扇和CPU盖子连在一起，所以右风扇只能原地清灰了），也无法换硅脂了。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182204758.jpg"></p>
+<p>过段时间看看还有没有兴致，买个工具把滑丝的螺丝拧下来，等后续。。</p>
+<h3 id="加装固态硬盘"><a href="#加装固态硬盘" class="headerlink" title="加装固态硬盘"></a>加装固态硬盘</h3><p>我把原装的固态硬盘硬盘插到了扩展槽，三星980插在了原装槽。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182210980.jpg"></p>
+<p>装好固态硬盘之后，右键“此电脑”，选择“管理”，点击“磁盘管理”，右键新磁盘，选择“新建简单卷”，点击下一步就行了。500G我分了两个区，D盘用来放各种软件，E盘用来放各种文件。</p>
+<p><img data-src="https://img.susin3x.cn//images/202305182218115.png"></p>
+<p><img data-src="https://img.susin3x.cn//images/202305182222892.jpg" alt="原固态硬盘测速"></p>
+<p><img data-src="https://img.susin3x.cn//images/202305182222692.jpg" alt="三星980固态硬盘测速"></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/fdfe12a3.html" title="小米笔记本Pro15.6蓝屏——重装系统，拆机清灰加固态">https://susin3x.cn/posts/fdfe12a3.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 重装系统</a>
+              <a href="/tags/%E6%8B%86%E6%9C%BA%E6%B8%85%E7%81%B0/" rel="tag"><i class="fa fa-tag"></i> 拆机清灰</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/36c70eb9.html" rel="prev" title="在阿里云服务器上部署一个flask项目">
+      <i class="fa fa-chevron-left"></i> 在阿里云服务器上部署一个flask项目
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">重装系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-%E7%B3%BB%E7%BB%9FU%E7%9B%98%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">方法一(系统U盘安装)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-PE%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">方法二(PE安装)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%A9%B1%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">安装驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B"><span class="nav-number">3.</span> <span class="nav-text">硬件检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%86%E6%9C%BA%E6%B8%85%E7%81%B0"><span class="nav-number">4.</span> <span class="nav-text">拆机清灰</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%86%E6%9C%BA%E5%87%86%E5%A4%87"><span class="nav-number">4.1.</span> <span class="nav-text">拆机准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%81%B0"><span class="nav-number">4.2.</span> <span class="nav-text">清灰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%82%E7%A1%85%E8%84%82%EF%BC%88%E6%9C%AA%E5%AE%8C%E6%88%90%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">涂硅脂（未完成）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%A3%85%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98"><span class="nav-number">4.4.</span> <span class="nav-text">加装固态硬盘</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="susin3x"
+      src="https://img.susin3x.cn/images/202202281750409.png">
+  <p class="site-author-name" itemprop="name">susin3x</p>
+  <div class="site-description" itemprop="description">念念不忘必有回响</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1c2luM3g=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;susin3x"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJnVpbj0yMzg2MDQyMTU1JnNpdGU9cXEmbWVudT15ZXM=" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;2386042155&amp;site&#x3D;qq&amp;menu&#x3D;yes"><i class="fab fa-qq fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmFzaW4zeEAxNjMuY29t" title="E-Mail → mailto:asin3x@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">susin3x</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">湘ICP备2022004776号-1 </span>
+      <span class="post-meta-divider">|</span>
+      <img src="https://img.susin3x.cn/images/202203301541843.png" style="display: inline-block;"><span class="exturl" data-url="aHR0cDovL3d3dy5iZWlhbi5nb3YuY24vcG9ydGFsL3JlZ2lzdGVyU3lzdGVtSW5mbz9yZWNvcmRjb2RlPTQzMDMyMTAyMDAwMjQx">湘公网安备 43032102000241号 </span>
+  </div>
+
+        
+<div class="busuanzi-count">
+
+  <!--
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+
+  <script async src="https://img.susin3x.cn/js/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/1.0.1/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/fdfe12a3.html',]
+      });
+      });
+  </script>
+
+</body>
+</html>

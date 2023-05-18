@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.susin3x.cn/images/202202281818594.png">
+  <link rel="mask-icon" href="https://img.susin3x.cn/images/202202281819953.png" color="#222">
+  <meta name="baidu-site-verification" content="code-gxBFH8JM9T">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="最近用学生优惠获得了免费使用阿里云服务器的机会，正好将我的毕设项目部署到服务器上。我的毕设项目是中国新冠疫情的预测与监控，希望部署成功后能自动爬取疫情数据，ECharts图表能正常显示。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在阿里云服务器上部署一个flask项目">
+<meta property="og:url" content="https://susin3x.cn/posts/36c70eb9.html">
+<meta property="og:site_name" content="Susin3x&#39;s Blog">
+<meta property="og:description" content="最近用学生优惠获得了免费使用阿里云服务器的机会，正好将我的毕设项目部署到服务器上。我的毕设项目是中国新冠疫情的预测与监控，希望部署成功后能自动爬取疫情数据，ECharts图表能正常显示。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203071848524.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081556807.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081636566.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081539379.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081528237.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081515815.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081519907.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081540156.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081540825.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203061857543.webp">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203061857450.webp">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203062038303.webp">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203062100683.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081556807.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081559788.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203071413692.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203071504099.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081548328.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081727660.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202203081714168.png">
+<meta property="og:image" content="https://img.susin3x.cn/images/202205181532174.png">
+<meta property="article:published_time" content="2022-03-01T12:20:10.000Z">
+<meta property="article:modified_time" content="2023-05-14T03:11:00.830Z">
+<meta property="article:author" content="susin3x">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="gunicorn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.susin3x.cn/images/202203071848524.png">
+
+<link rel="canonical" href="https://susin3x.cn/posts/36c70eb9.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在阿里云服务器上部署一个flask项目 | Susin3x's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Susin3x's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Susin3x's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-bibi">
+
+    <a href="/bb/" rel="section"><i class="fa fa-comment fa-fw"></i>说说</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fas fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/36c70eb9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在阿里云服务器上部署一个flask项目
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-01 20:20:10" itemprop="dateCreated datePublished" datetime="2022-03-01T20:20:10+08:00">2022-03-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">学习分享</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">最近用学生优惠获得了免费使用阿里云服务器的机会，正好将我的毕设项目部署到服务器上。我的毕设项目是中国新冠疫情的预测与监控，希望部署成功后能自动爬取疫情数据，ECharts图表能正常显示。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>部署flask项目时，通常都是使用WSGI应用服务器搭配Nginx作为反向代理实现的。常用的WSGI服务器有gunicorn和uwsgi，本项目将使用Nginx反向代理搭配gunicorn实现flask项目的部署。</p>
+<h2 id="python3安装"><a href="#python3安装" class="headerlink" title="python3安装"></a>python3安装</h2><p>centos7原本就安装了Python2，而且不能被删除，因为可能有程序如yum依赖python2环境。</p>
+<p><img data-src="https://img.susin3x.cn/images/202203071848524.png"></p>
+<p>输入python命令，查看可知centos7自带的是python2.7.5版本。输入“which python”可以查看python所在的位置，一般是位于/usr/bin/python目录下。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ ~]# which python</span><br><span class="line">/usr/bin/python</span><br></pre></td></tr></table></figure>
+
+<p>下面介绍安装python3的方法</p>
+<ul>
+<li>首先安装依赖包</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ ~]# yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cucHl0aG9uLm9yZy9kb3dubG9hZHMv">下载<i class="fa fa-external-link-alt"></i></span>python3安装包，在/usr/local目录下新建一个python3目录，将安装包上传到 /usr/local/python3 目录后解压</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ ~]# <span class="built_in">mkdir</span> /usr/local/python3</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ ~]# <span class="built_in">cd</span> /usr/local/python3</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# tar -xvf Python-<span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span>.tar.xz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编译安装</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# <span class="built_in">cd</span> Python-<span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span></span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# ./configure --prefix=/usr/local/python3</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建软连接</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ Python-<span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span>]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">报错：</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ Python-<span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span>]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3</span><br><span class="line"><span class="function">ln: <span class="title">failed</span> <span class="title">to</span> <span class="title">create</span> <span class="title">symbolic</span> <span class="title">link</span> ‘/<span class="title">usr</span>/<span class="title">bin</span>/<span class="title">python3</span>’: <span class="title">File</span> <span class="title">exists</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">解决方法：<span class="title">ln</span> -<span class="title">s</span> 加一个 <span class="title">f</span> 即可</span></span><br><span class="line"><span class="function">[<span class="title">root</span>@<span class="title">iZf8zi7rsmqdun3dyxb7cfZ</span> <span class="title">Python</span>-3.6.2]# <span class="title">ln</span> -<span class="title">sf</span> /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">python3</span>/<span class="title">bin</span>/<span class="title">python3</span> /<span class="title">usr</span>/<span class="title">bin</span>/<span class="title">python3</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将/usr/local/python3/bin加入PATH</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># vim ~/.bash_profile</span><br><span class="line"># .bash_profile</span><br><span class="line"># Get the aliases and functions</span><br><span class="line"><span class="keyword">if</span> [ -f ~/.bashrc ]; then</span><br><span class="line">. ~/.bashrc</span><br><span class="line">fi</span><br><span class="line"># User specific environment and startup programs</span><br><span class="line"><span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$HOME/bin:/usr/local/python3/bin</span><br><span class="line">export <span class="built_in">PATH</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按ESC输入:wq回车退出，修改完执行下面的命令，让上一步的修改生效</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ Python-<span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span>]# source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>检查python3及pip3是否正常可用，如果输出版本号就成功啦</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ Python-<span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span>]# python3 -V</span><br><span class="line">Python <span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span></span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ Python-<span class="number">3</span>.<span class="number">6</span>.<span class="number">2</span>]# pip3 -V</span><br><span class="line">pip <span class="number">9</span>.<span class="number">0</span>.<span class="number">1</span> from /usr/local/python3/lib/python3.<span class="number">6</span>/site-packages (python <span class="number">3</span>.<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="pip3安装（可不装）"><a href="#pip3安装（可不装）" class="headerlink" title="pip3安装（可不装）"></a>pip3安装（可不装）</h3><p>丰富的第三方库是python的优势所在，为了更加方便的安装第三方库，使用pip命令，我们需要进行相应的安装。</p>
+<ul>
+<li>安装pip前需要前置安装<span class="exturl" data-url="aHR0cHM6Ly9weXBpLnB5dGhvbi5vcmcvcGFja2FnZXMvc291cmNlL3Mvc2V0dXB0b29scy9zZXR1cHRvb2xzLTE5LjYudGFyLmd6I21kNT1jNjA3ZGQxMThlYWU2ODJjNDRlZDE0NjM2N2ExN2UyNg==">setuptools<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# <span class="built_in">mkdir</span> setuptools</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# <span class="built_in">cd</span> setuptools</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ setuptools]# ls</span><br><span class="line">setuptools-<span class="number">19</span>.<span class="number">6</span>.tar.gz</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ setuptools]# tar -xvf setuptools-<span class="number">19</span>.<span class="number">6</span>.tar.gz</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ setuptools]# <span class="built_in">cd</span> setuptools-<span class="number">19</span>.<span class="number">6</span></span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ setuptools-<span class="number">19</span>.<span class="number">6</span>]# python3 setup.py build</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ setuptools-<span class="number">19</span>.<span class="number">6</span>]# python3 setup.py install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装<span class="exturl" data-url="aHR0cHM6Ly9weXBpLnB5dGhvbi5vcmcvcGFja2FnZXMvc291cmNlL3AvcGlwL3BpcC04LjAuMi50YXIuZ3ojbWQ1PTNhNzNjNDE4OGY4ZGJhZDZhMWU2ZjZkNDRkMTE3ZWVi">pip<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# <span class="built_in">mkdir</span> pip3</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ python3]# <span class="built_in">cd</span> pip3</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ pip3]# ls</span><br><span class="line">pip-<span class="number">8</span>.<span class="number">0</span>.<span class="number">2</span>.tar.gz</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ pip3]# tar -xvf pip-<span class="number">8</span>.<span class="number">0</span>.<span class="number">2</span>.tar.gz</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ pip3]# <span class="built_in">cd</span> pip-<span class="number">8</span>.<span class="number">0</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="上传数据"><a href="#上传数据" class="headerlink" title="上传数据"></a>上传数据</h2><p>开放3306端口和5000端口： 进入阿里云控制台  –&gt;  点击云服务器ECS  –&gt;  点击左侧的安全组  –&gt;  点击创建安全组 </p>
+<p><img data-src="https://img.susin3x.cn/images/202203081556807.png"></p>
+<p>​    选择入方向，手动添加3306端口和5000端口</p>
+<p><img data-src="https://img.susin3x.cn/images/202203081636566.png"></p>
+<h3 id="项目文件"><a href="#项目文件" class="headerlink" title="项目文件"></a>项目文件</h3><p><img data-src="https://img.susin3x.cn/images/202203081539379.png"></p>
+<h3 id="数据库文件"><a href="#数据库文件" class="headerlink" title="数据库文件"></a>数据库文件</h3><p>在做毕设项目的时候，我把所有的疫情数据都放到了本地MySQL数据库中，要完成项目的部署，得把本地数据库中的数据上传到服务器的数据库中。前提：我的服务器已经装了MySQL；可使用宝塔面板进行操作，也可在终端输入命令。</p>
+<ul>
+<li>导出本地数据库sql文件</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203081528237.png"></p>
+<ul>
+<li>进入宝塔面板，点击数据库  – &gt;  添加数据库  –&gt;  输入数据库名</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203081515815.png"></p>
+<ul>
+<li>点击导入</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203081519907.png"></p>
+<ul>
+<li>本地上传sql文件</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203081540156.png"></p>
+<ul>
+<li>导入成功</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203081540825.png"></p>
+<h4 id="linux中mysql常用命令"><a href="#linux中mysql常用命令" class="headerlink" title="linux中mysql常用命令"></a>linux中mysql常用命令</h4><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">启动mysql服务:</span><br><span class="line">service mysqld <span class="built_in">start</span></span><br><span class="line"></span><br><span class="line">查看mysql运行状态：</span><br><span class="line">service mysqld status</span><br><span class="line"></span><br><span class="line">查看mysql的运行使用的进程</span><br><span class="line">ps -ef |grep mysql</span><br><span class="line"></span><br><span class="line">登录本机mysql数据库：</span><br><span class="line">mysql -u root -p   </span><br><span class="line">--&gt;enter:输入密码</span><br><span class="line"></span><br><span class="line">停止mysql服务:</span><br><span class="line">service mysqld stop</span><br><span class="line"></span><br><span class="line">重启mysql服务:</span><br><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx简述"><a href="#Nginx简述" class="headerlink" title="Nginx简述"></a>Nginx简述</h2><p>Nginx 是高性能的 HTTP 和反向代理的服务器，处理高并发能力是十分强大的，能经受高负载的考验,有报告表明Nginx能支持高达 50,000 个并发连接数。</p>
+<h3 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h3><p>正向代理指在客户端（浏览器）配置代理服务器，通过代理服务器进行指定网站访问。</p>
+<p><img data-src="https://img.susin3x.cn/images/202203061857543.webp" alt="正向代理"></p>
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p>反向代理，其实客户端对代理是无感知的，因为客户端不需要任何配置就可以访问，我们只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器 IP 地址。</p>
+<p><img data-src="https://img.susin3x.cn/images/202203061857450.webp" alt="反向代理"></p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>增加服务器的数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器上的情况改为将请求分发到多个服务器上，将负载分发到不同的服务器，也就是我们所说的负载均衡。</p>
+<p><img data-src="https://img.susin3x.cn/images/202203062038303.webp" alt="负载均衡"></p>
+<h3 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h3><p>为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度，从而降低原来单个服务器的压力。</p>
+<p><img data-src="https://img.susin3x.cn/images/202203062100683.png" alt="动静分离"> </p>
+<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><h3 id="安装pcre依赖"><a href="#安装pcre依赖" class="headerlink" title="安装pcre依赖"></a>安装pcre依赖</h3><ul>
+<li>进入 src 目录，联网下载 pcre 安装包依赖 </li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ ~]# <span class="built_in">cd</span> /usr/src</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ src]# wget http://downloads.sourceforge.<span class="built_in">net</span>/project/pcre/pcre/<span class="number">8</span>.<span class="number">37</span>/pcre-<span class="number">8</span>.<span class="number">37</span>.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解压 pcre 安装包</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ src]# tar -xvf pcre-<span class="number">8</span>.<span class="number">37</span>.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进入 pcre 解压后的文件目录</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ src]# <span class="built_in">cd</span> pcre-<span class="number">8</span>.<span class="number">37</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编译安装</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ pcre-<span class="number">8</span>.<span class="number">37</span>]# ./configure</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ pcre-<span class="number">8</span>.<span class="number">37</span>]# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看 pcre 版本</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ pcre-<span class="number">8</span>.<span class="number">37</span>]# pcre-config --version</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装其他依赖"><a href="#安装其他依赖" class="headerlink" title="安装其他依赖"></a>安装其他依赖</h3><p>安装openssl 、zlib、gcc依赖</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ pcre-<span class="number">8</span>.<span class="number">37</span>]# yum -y install make zlib zlib-devel gcc-c++ libtool    openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h3><ul>
+<li>先开放80端口：进入阿里云控制台  –&gt;  点击云服务器ECS  –&gt;  点击左侧的安全组  –&gt;  点击创建安全组 </li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203081556807.png"></p>
+<p>​    选择入方向，手动添加80端口</p>
+<p><img data-src="https://img.susin3x.cn/images/202203081559788.png"></p>
+<ul>
+<li>将 nginx-1.12.2.tar.gz 安装包上传到 src 目录后解压，也可以去<span class="exturl" data-url="aHR0cHM6Ly9uZ2lueC5vcmcvZG93bmxvYWQv">下载<i class="fa fa-external-link-alt"></i></span>想要的 Nginx 安装包</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ src]# ls</span><br><span class="line">nginx-<span class="number">1</span>.<span class="number">12</span>.<span class="number">2</span>.tar.gz  pcre-<span class="number">8</span>.<span class="number">37</span>  pcre-<span class="number">8</span>.<span class="number">37</span>.tar.gz</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ src]# tar -xvf nginx-<span class="number">1</span>.<span class="number">12</span>.<span class="number">2</span>.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进入 Nginx 解压后的文件目录</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ src]# <span class="built_in">cd</span> nginx-<span class="number">1</span>.<span class="number">12</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编译安装</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ nginx-<span class="number">1</span>.<span class="number">12</span>.<span class="number">2</span>]# ./configure</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ nginx-<span class="number">1</span>.<span class="number">12</span>.<span class="number">2</span>]# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Nginx 安装成功后在 usr/local/ 目录下会多一个 nginx 目录</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ local]# ls</span><br><span class="line">aegis  bttomcat  games    lib64     man      sbin   webserver</span><br><span class="line">bin    curl      include  libexec   nginx    share  zend</span><br><span class="line">btjdk  etc       lib      libiconv  openssl  src</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 nginx 目录下的 sbin 目录有启动脚本</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ local]# <span class="built_in">cd</span> nginx</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ nginx]# ls</span><br><span class="line">conf  html  logs  sbin</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ nginx]# <span class="built_in">cd</span> sbin</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ls</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动 nginx，查看进程</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ./nginx</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ps -ef | grep nginx</span><br><span class="line">root      <span class="number">6511</span>     <span class="number">1</span>  <span class="number">0</span> <span class="number">13</span>:<span class="number">57</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> nginx: master process ./nginx</span><br><span class="line">nobody    <span class="number">6512</span>  <span class="number">6511</span>  <span class="number">0</span> <span class="number">13</span>:<span class="number">57</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> nginx: worker process</span><br><span class="line">root      <span class="number">6529</span>  <span class="number">6405</span>  <span class="number">0</span> <span class="number">13</span>:<span class="number">58</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> grep --<span class="built_in">color</span>=auto nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>访问公网地址47.113.197.40，nginx终于安装成功啦✿✿ヽ(°▽°)ノ✿</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203071413692.png"></p>
+<h3 id="Nginx-常用命令"><a href="#Nginx-常用命令" class="headerlink" title="Nginx 常用命令"></a>Nginx 常用命令</h3><p>使用nginx操作命令前提条件：必须进入nginx的目录（/usr/local/nginx/sbin）</p>
+<ul>
+<li>查看nginx的版本号</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ./nginx -v</span><br><span class="line">nginx version: nginx/<span class="number">1</span>.<span class="number">12</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动nginx</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ./nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>停止nginx，进程没啦</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ./nginx -s stop</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ps -ef | grep nginx</span><br><span class="line">root      <span class="number">6804</span>  <span class="number">6405</span>  <span class="number">0</span> <span class="number">14</span>:<span class="number">23</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> grep --<span class="built_in">color</span>=auto nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重新加载nginx</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ./nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">问题：</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# ./nginx -s reload</span><br><span class="line"><span class="function">nginx: [<span class="title">error</span>] <span class="title">open</span>() &quot;/<span class="title">usr</span>/<span class="title">local</span>/<span class="title">nginx</span>/<span class="title">logs</span>/<span class="title">nginx.pid</span>&quot; <span class="title">failed</span> (2: <span class="title">No</span> <span class="title">such</span> <span class="title">file</span> <span class="title">or</span> <span class="title">directory</span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">解决方法：</span></span><br><span class="line"><span class="function">[<span class="title">root</span>@<span class="title">iZf8zi7rsmqdun3dyxb7cfZ</span> <span class="title">sbin</span>]# /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">nginx</span>/<span class="title">sbin</span>/<span class="title">nginx</span> -<span class="title">c</span> /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">nginx</span>/<span class="title">conf</span>/<span class="title">nginx.conf</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>杀死进程</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ sbin]# kill -<span class="number">9</span> <span class="number">6511</span>(进程号)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Nginx配置文件"><a href="#Nginx配置文件" class="headerlink" title="Nginx配置文件"></a>Nginx配置文件</h3><h4 id="nginx配置文件位置"><a href="#nginx配置文件位置" class="headerlink" title="nginx配置文件位置"></a>nginx配置文件位置</h4><p><img data-src="https://img.susin3x.cn/images/202203071504099.png"></p>
+<h4 id="nginx配置文件组成"><a href="#nginx配置文件组成" class="headerlink" title="nginx配置文件组成"></a>nginx配置文件组成</h4><p>第一部分：全局块</p>
+<p> 从配置文件开始到  events  块之间的内容，会设置一些影响 Nginx  服务器整体运行的配置指令，主要包括配置运行  Nginx  服务器的用户（组）、允许生成的  worker process  数，进程  PID  存放路径、日志存放路径和类型以及配置文件的引入等。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p> 这是  Nginx  服务器并发处理服务的关键配置，worker_processes 值越大，可以支持的并发处理量也越多，但是会受到硬件、软件等设备的制约。</p>
+<p>第二部分：events块</p>
+<p> events  块涉及的指令主要影响  Nginx  服务器与用户的网络连接，常用的设置包括是否开启对多  work process 下的网络连接序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型来处理连接请求，每个  word process  可以同时支持的最大连接数等。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker_connections  <span class="number">1024</span>;</span><br></pre></td></tr></table></figure>
+
+<p> 如上代码表示每个  work process  支持的最大连接数为  1024。</p>
+<p>第三部分：http块</p>
+<p>这算是  Nginx  服务器配置中最频繁的部分，代理、缓存和日志定义等绝大多数功能和第三方模块的配置都在这里。需要注意的是：http  块也可以包括 http 全局块、server  块。 </p>
+<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><p>记得修改完配置文件，需要重新加载一下配置文件~</p>
+<p><img data-src="https://img.susin3x.cn/images/202203081548328.png"></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ ~]# /usr/local/nginx/sbin/nginx -s reload     //重新加载</span><br></pre></td></tr></table></figure>
+
+<h2 id="gunicorn"><a href="#gunicorn" class="headerlink" title="gunicorn"></a>gunicorn</h2><ul>
+<li>安装gunicorn</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ ~]# pip3 install gunicorn</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动gunicorn</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gunicorn -w worker数量 -b ip:端口号 运行文件名：flask实例名</span><br><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ cov]# gunicorn -b <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">5000</span> cov:app    //例子</span><br></pre></td></tr></table></figure>
+
+<p>- w 表示有3 个 工作线程；- b 指定ip 和端口；app 为全局变量 （app = Flask(_ _name _ _)）</p>
+<ul>
+<li>重启gunicorn</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202203081727660.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZf8zi7rsmqdun3dyxb7cfZ cov]# kill -HUP 15456(主进程)</span><br></pre></td></tr></table></figure>
+
+<p>我一般会在项目文件修改后重启一下gunicorn</p>
+<h2 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h2><p>到现在项目部署就差不多，访问一下<del><span class="exturl" data-url="aHR0cDovLzQ3LjExMy4xOTcuNDAv">公网ip<i class="fa fa-external-link-alt"></i></span></del>（学生优惠领的服务器快过期了，于是我把flask项目移植到另一个服务器了<span class="exturl" data-url="aHR0cDovL2NvdmlkLnN1c2luM3guY24v">公网ip<i class="fa fa-external-link-alt"></i></span>）看看访问是否成功</p>
+<p><img data-src="https://img.susin3x.cn/images/202203081714168.png"></p>
+<p>项目部署到服务器了，撒花✿✿ヽ(°▽°)ノ✿</p>
+<h2 id="使用crontab定时调度爬虫"><a href="#使用crontab定时调度爬虫" class="headerlink" title="使用crontab定时调度爬虫"></a>使用crontab定时调度爬虫</h2><p>上传spider.py文件至/root目录，终端输入“crontab -e”命令</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crontab -e //编辑该用户的计时器设置</span><br><span class="line">crontab -l //列出该用户的计时器设置</span><br></pre></td></tr></table></figure>
+
+<p>每隔一小时执行”up_his”下的方法，完成对全国历史数据的爬取；</p>
+<p>每隔30分钟执行”up_det”下的方法，完成对今日详细数据的爬取；</p>
+<p>每隔一小时执行”up_tol”下的方法，完成对当前总数据的爬取；</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//crontab编辑内容</span><br><span class="line">* */<span class="number">1</span> * * * python3 /root/spider.py up_his &gt;&gt; /root/log_his <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br><span class="line">*/<span class="number">30</span> * * * * python3 /root/spider.py up_det &gt;&gt; /root/log_det <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br><span class="line">* */<span class="number">1</span> * * * python3 /root/spider.py up_tol &gt;&gt; /root/log_tol <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></table></figure>
+
+<p>完成编辑后按”ESC”键退出编辑模式进入指令模式，输入:wq回车即可保存退出。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>项目部署完成啦，还实现了定时爬取疫情数据，真的很有成就感啊&lt;(￣︶￣)&gt;。之前觉得项目部署很难，现在也觉得没啥了，之后还想着要学习Linux的相关命令。不过ECharts图表还是不能正常显示，中国地图不能显示各省的疫情数据，我看腾讯疫情实时追踪的中国地图好像也是用的ECharts，但腾讯显示是正常的。革命尚未成功，还得继续研究一番呐~</p>
+<p>下图是我的毕业论文二维码，扫描即可查看全文。记录一下，算是督促自己去完善毕设😊，可以尝试用其他模型做对比实验，也可以用其他划分法对疫情数据进行划分。总之就是，生命不息，学习不止。</p>
+<p><img data-src="https://img.susin3x.cn/images/202205181532174.png" alt="susin3x的毕业论文二维码"></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/36c70eb9.html" title="在阿里云服务器上部署一个flask项目">https://susin3x.cn/posts/36c70eb9.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/nginx/" rel="tag"><i class="fa fa-tag"></i> nginx</a>
+              <a href="/tags/gunicorn/" rel="tag"><i class="fa fa-tag"></i> gunicorn</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/b7afdeae.html" rel="prev" title="javaSE基础学习day14">
+      <i class="fa fa-chevron-left"></i> javaSE基础学习day14
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/fdfe12a3.html" rel="next" title="小米笔记本Pro15.6蓝屏——重装系统，拆机清灰加固态">
+      小米笔记本Pro15.6蓝屏——重装系统，拆机清灰加固态 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python3%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">python3安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip3%E5%AE%89%E8%A3%85%EF%BC%88%E5%8F%AF%E4%B8%8D%E8%A3%85%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">pip3安装（可不装）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">上传数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">项目文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">数据库文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#linux%E4%B8%ADmysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.1.</span> <span class="nav-text">linux中mysql常用命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx%E7%AE%80%E8%BF%B0"><span class="nav-number">3.</span> <span class="nav-text">Nginx简述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">正向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">3.3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">3.4.</span> <span class="nav-text">动静分离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85pcre%E4%BE%9D%E8%B5%96"><span class="nav-number">4.1.</span> <span class="nav-text">安装pcre依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%85%B6%E4%BB%96%E4%BE%9D%E8%B5%96"><span class="nav-number">4.2.</span> <span class="nav-text">安装其他依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Nginx"><span class="nav-number">4.3.</span> <span class="nav-text">安装Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">4.4.</span> <span class="nav-text">Nginx 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.5.</span> <span class="nav-text">Nginx配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.5.1.</span> <span class="nav-text">nginx配置文件位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90"><span class="nav-number">4.5.2.</span> <span class="nav-text">nginx配置文件组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.5.3.</span> <span class="nav-text">修改配置文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gunicorn"><span class="nav-number">5.</span> <span class="nav-text">gunicorn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2"><span class="nav-number">6.</span> <span class="nav-text">项目部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8crontab%E5%AE%9A%E6%97%B6%E8%B0%83%E5%BA%A6%E7%88%AC%E8%99%AB"><span class="nav-number">7.</span> <span class="nav-text">使用crontab定时调度爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="susin3x"
+      src="https://img.susin3x.cn/images/202202281750409.png">
+  <p class="site-author-name" itemprop="name">susin3x</p>
+  <div class="site-description" itemprop="description">念念不忘必有回响</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1c2luM3g=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;susin3x"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJnVpbj0yMzg2MDQyMTU1JnNpdGU9cXEmbWVudT15ZXM=" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;2386042155&amp;site&#x3D;qq&amp;menu&#x3D;yes"><i class="fab fa-qq fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmFzaW4zeEAxNjMuY29t" title="E-Mail → mailto:asin3x@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">susin3x</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">湘ICP备2022004776号-1 </span>
+      <span class="post-meta-divider">|</span>
+      <img src="https://img.susin3x.cn/images/202203301541843.png" style="display: inline-block;"><span class="exturl" data-url="aHR0cDovL3d3dy5iZWlhbi5nb3YuY24vcG9ydGFsL3JlZ2lzdGVyU3lzdGVtSW5mbz9yZWNvcmRjb2RlPTQzMDMyMTAyMDAwMjQx">湘公网安备 43032102000241号 </span>
+  </div>
+
+        
+<div class="busuanzi-count">
+
+  <!--
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+
+  <script async src="https://img.susin3x.cn/js/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/1.0.1/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/36c70eb9.html',]
+      });
+      });
+  </script>
+
+</body>
+</html>

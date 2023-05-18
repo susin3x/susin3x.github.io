@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.susin3x.cn/images/202202281819953.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.susin3x.cn/images/202202281818594.png">
+  <link rel="mask-icon" href="https://img.susin3x.cn/images/202202281819953.png" color="#222">
+  <meta name="baidu-site-verification" content="code-gxBFH8JM9T">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"susin3x.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="主要学习了面向对象的封装性，封装性可以通过权限修饰符来体现，构造器可创建对象或初始化对象的结构，this可理解为当前对象或当前正在创建的对象，package和import能更好管理和使用包中的类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaSE基础学习day09">
+<meta property="og:url" content="https://susin3x.cn/posts/d0059352.html">
+<meta property="og:site_name" content="Susin3x&#39;s Blog">
+<meta property="og:description" content="主要学习了面向对象的封装性，封装性可以通过权限修饰符来体现，构造器可创建对象或初始化对象的结构，this可理解为当前对象或当前正在创建的对象，package和import能更好管理和使用包中的类。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207042339949.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207071903317.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207071710798.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207082135665.svg">
+<meta property="og:image" content="https://img.susin3x.cn/images/202207072257019.png">
+<meta property="article:published_time" content="2022-02-05T06:28:17.000Z">
+<meta property="article:modified_time" content="2023-05-14T03:11:00.925Z">
+<meta property="article:author" content="susin3x">
+<meta property="article:tag" content="javaSE">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.susin3x.cn/images/202207042339949.svg">
+
+<link rel="canonical" href="https://susin3x.cn/posts/d0059352.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>javaSE基础学习day09 | Susin3x's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Susin3x's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Susin3x's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-bibi">
+
+    <a href="/bb/" rel="section"><i class="fa fa-comment fa-fw"></i>说说</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fas fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://susin3x.cn/posts/d0059352.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.susin3x.cn/images/202202281750409.png">
+      <meta itemprop="name" content="susin3x">
+      <meta itemprop="description" content="念念不忘必有回响">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Susin3x's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaSE基础学习day09
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-05 14:28:17" itemprop="dateCreated datePublished" datetime="2022-02-05T14:28:17+08:00">2022-02-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSE/" itemprop="url" rel="index"><span itemprop="name">javaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">主要学习了面向对象的封装性，封装性可以通过权限修饰符来体现，构造器可创建对象或初始化对象的结构，this可理解为当前对象或当前正在创建的对象，package和import能更好管理和使用包中的类。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="面向对象的特征之一：封装与隐藏"><a href="#面向对象的特征之一：封装与隐藏" class="headerlink" title="面向对象的特征之一：封装与隐藏"></a>面向对象的特征之一：封装与隐藏</h2><p>程序设计追求“<font color  = red>高内聚低耦合</font>”，高内聚 (类的内部数据操作细节自己完成，不允许外部干涉)；低耦合(对外仅暴露少量的方法用于使用)。隐藏对象内部的复杂性，只对外公开简单的接口便于外界调用，从而提高系统的可扩展性和可维护性。把该隐藏的隐藏起来，该暴露的暴露出来，这就是封装性的设计思想。</p>
+<p>当创建一个类的对象后，可以通过object.field给对象的属性赋值，赋值操作要受到属性的数据类型和存储范围的制约，除此之外没有其他的制约条件。但在实际问题中，往往需要给属性赋值加入额外的限制条件，这个条件<font color = red>不能在属性声明时体现，只能通过方法添加限制条件</font>。为了避免用户再使用object.field的方式对属性赋值，则需要将属性声明为私有的(private)，此时针对属性就体现了封装性。</p>
+<p>java中通过将数据声明为私有的(private)，再提供公共的(public)方法：getXxx()和setXxx()实现对该属性的操作，以实现下述目的：<br>📌 隐藏一个类中不需要对外提供的实现细节；<br>📌 使用者只能通过事先定制好的方法来访问数据；<br>📌 可以方便地加入控制逻辑，限制对属性的不合理操作；<br>📌 便于修改，增强代码的可维护性。 </p>
+<p>封装性思想具体的代码体现：<br>体现一：将类的属性xxx私化(private)，同时提供公共的(public)方法来获取(getXxx)和设置(setXxx)此属性的值；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setRadius</span><span class="params">(<span class="type">double</span> radius)</span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.radius = radius;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getRadius</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> radius;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>体现二：不对外暴露的私有的方法；<br>体现三：单例模式（将构造器私有化）；<br>体现四：如果不希望类在包外被调用，可以将类设置为缺省的。</p>
+<h3 id="权限修饰符"><a href="#权限修饰符" class="headerlink" title="权限修饰符"></a>权限修饰符</h3><p>封装性的体现，需要权限修饰符来配合。权限修饰符（权限从小到大排列）private，缺省、protected、public置于<font color = red>类的成员定义前</font>，用来限定对象对该类成员的访问权限。</p>
+<table>
+<thead>
+<tr>
+<th align="center">修饰符</th>
+<th align="center">类内部</th>
+<th align="center">同一个包</th>
+<th align="center">不同包的子类</th>
+<th align="center">同一个工程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">private</td>
+<td align="center">yes</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">缺省</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">protected</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">public</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+</tr>
+</tbody></table>
+<p>4种权限修饰符可以用来修饰类的内部结构（属性、方法、构造器、内部类、代码块&lt;不可修饰&gt;）</p>
+<p><img data-src="https://img.susin3x.cn/images/202207042339949.svg" alt="权限修饰符"></p>
+<p>对于class的权限修饰只可以用public和default(缺省)。<br>📌 public类可以在任意地方被访问。<br>📌 default类只可以被同一个包内部的类访问。</p>
+<h3 id="练习1"><a href="#练习1" class="headerlink" title="练习1"></a>练习1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建程序,在其中定义两个类：Person和PersonTest类。定义如下：用setAge()设置人的合法年龄(0~130)，用getAge()返回人的年龄。在 PersonTest 类 中 实 例 化 Person 类 的 对 象 p ，调 用 setAge()和getAge()方法，体会Java的封装性。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">        p.setAge(<span class="number">22</span>);</span><br><span class="line">        System.out.println(p.getAge());	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> i)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i &lt; <span class="number">0</span> || i &gt; <span class="number">130</span>)&#123;</span><br><span class="line">            <span class="comment">//throw new RuntimeException(&quot;传入的数据非法！&quot;);</span></span><br><span class="line">            System.out.println(<span class="string">&quot;传入的数据非法！&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        age = i;		</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> age;</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类的成员之三：构造器（构造方法）"><a href="#类的成员之三：构造器（构造方法）" class="headerlink" title="类的成员之三：构造器（构造方法）"></a>类的成员之三：构造器（构造方法）</h2><p>构造方法(创建类的对象：new+构造器)是<font color = red>与类同名且没有返回值类型的方法</font>，当创建类的对象(实例化类)时，就会<font color =  red>自动调用</font>构造方法。构造器的主要作用是<font color  = red>创建对象或者初始化对象的信息(主要是属性)</font>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造器的语法格式</span></span><br><span class="line">修饰符 类名(参数列表)&#123;</span><br><span class="line">    初始化语句;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//举例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> legs;</span><br><span class="line">    <span class="comment">// 构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Animal</span><span class="params">()</span> &#123;</span><br><span class="line">        legs = <span class="number">4</span>;<span class="comment">//将legs初始化为4。</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据参数不同，构造器可以分为如下两类：<br>📌 隐式无参构造器（系统默认提供）<br>📌 显式定义一个或多个构造器（无参、有参）</p>
+<p>注意：<br>📌 Java语言中，每个类都至少有一个构造器，一个类可以创建多个重载的构造器。<br>📌 默认构造器的修饰符与所属类的修饰符一致，父类的构造器不可被子类继承。<br>📌 如果没有显式的定义类的构造器的话，则系统默认提供一个空参的构造器。<br>📌 一旦显式定义了构造器，则系统不再提供默认构造器。<br>📌 构造器不能被static、final、synchronized、abstract、native修饰，不能有return语句。</p>
+<h3 id="练习2"><a href="#练习2" class="headerlink" title="练习2"></a>练习2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编写两个类，TriAngle和TriAngleTest，其中TriAngle类中声明私有的底边长base和高height，同时声明公共方法访问私有变量。此外，提供类必要的构造器。另一个类中使用这些公共方法，计算三角形的面积。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TriAngleTest</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">TriAngle</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TriAngle</span>();</span><br><span class="line">        t.setNum(<span class="number">10</span>,<span class="number">2.5</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;三角形的底边长是&quot;</span> + t.getBase + <span class="string">&quot;，高是&quot;</span> + t.getHeight + <span class="string">&quot;，面积是&quot;</span> + t.getArea);</span><br><span class="line">        </span><br><span class="line">        <span class="type">TriAngle</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TriAngle</span>(<span class="number">4</span>,<span class="number">2.5</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;三角形的底边长是&quot;</span> + t.getBase + <span class="string">&quot;，高是&quot;</span> + t.getHeight + <span class="string">&quot;，面积是&quot;</span> + t.getArea);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TriAngle</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> base;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> height;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TriAngle</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Triangle</span><span class="params">(<span class="type">double</span> b,<span class="type">double</span> h)</span>&#123;</span><br><span class="line">        base = b;</span><br><span class="line">        height = h;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNum</span><span class="params">(<span class="type">double</span> b,<span class="type">double</span> h)</span>&#123;</span><br><span class="line">        base = b;</span><br><span class="line">        height= h;  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getBase</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> base;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getHeight</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> height;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getArea</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> base * height * <span class="number">0.5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="属性赋值过程"><a href="#属性赋值过程" class="headerlink" title="属性赋值过程"></a>属性赋值过程</h3><p>赋值的先后顺序：① - ② - ③ - ④<br>赋值的位置：<br>① 默认初始化<br>② 显式初始化<br>③ 构造器中初始化<br>④ 通过“object.field”或“object.method”的方式赋值</p>
+<h3 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h3><p>JavaBean是一种由Java语言写成的可重用组件，所谓javaBean，是指符合如下标准的Java类：<br>📌 类是公共的<br>📌 有一个<font color  =  red>公共的无参的</font>构造器<br>📌 有属性，且有对应的get、set方法<br>用户可以使用JavaBean将功能、处理、值、数据库访问和其他任何可以用Java代码创造的对象进行打包，并且其他的开发者可以通过内部的JSP页面、Servlet、其他JavaBean、applet程序或者应用来使用这些对象。用户可以认为JavaBean提供了一种随时随地的复制和粘贴的功能，而不用关心任何改变。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaBean</span> &#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> String name; <span class="comment">// 属性一般定义为private</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JavaBean</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> a)</span> &#123;</span><br><span class="line">        age = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String n)</span> &#123;</span><br><span class="line">        name = n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><p><img data-src="https://img.susin3x.cn/images/202207071903317.svg" alt="类图"></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmJzbWF4LmNvbS9BL2dHZFhQOWFFZDQv">uml图的六种箭头<i class="fa fa-external-link-alt"></i></span>，注：+表示public类型，-表示private类型，#表示protected类型</p>
+<h2 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h2><p>在java中，this关键字可以调用<font color = red>类的属性、方法和构造器</font>，this可理解为<font color  = red>当前对象</font>（当前正在操作本方法的对象称为当前对象）或<font color = red>当前正在创建的对象</font>。它在方法内部使用，即<font color = red>这个方法所属对象的引用</font>；它在构造器内部使用，表示<font color = red>该构造器正在初始化的对象</font>。</p>
+<p>在任意方法或构造器内，如果使用当前类的成员变量或成员方法，可以在其前面添加this，增强程序的阅读性，不过通常都习惯省略this。当形参与成员变量同名时，如果在方法内或构造器内需要使用成员变量，必须使用“this.field”来表明该变量是类的成员变量。使用this访问属性和方法时，如果在本类中未找到，<font color = red>会从父类中查找</font>。this可以作为一个类中构造器相互调用的特殊格式：</p>
+<p>① 可以在类的构造器中使用“this(形参列表)”的方式，调用本类中重载的其他的构造器；<br>② 构造器中不能通过“this(形参列表)”的方式调用自身构造器；<br>③ 如果一个类中有n个构造器，则最多有 n - 1构造器中使用了“this(形参列表)”；<br>④ “this(形参列表)”必须声明在当前构造器的<font color = red>首行</font>；<br>⑤ 在类的一个构造器中，最多只能声明<font color = red>一个“this(形参列表)”</font>，用来调用其他的构造器。</p>
+<h3 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h3><p>按照如下的 UML 类图，创建相应的类，提供必要的结构，创建 BankTest 类进行测试，要求如下：</p>
+<ul>
+<li>在提款方法withdraw()中，需要判断用户余额是否能够满足提款数额的要求，如果不能，应给出提示，deposit()方法表示存款。</li>
+<li>addCustomer方法必须依照参数（姓，名）构造一个新的Customer对象，然后把它放到customer数组中。还必须把  numberOfCustomer属性的值加1。getNumOfCustomers方法返回numberofCustomer属性值。getCustomer方法返回与给出的 index参数相关的客户。</li>
+</ul>
+<p><img data-src="https://img.susin3x.cn/images/202207071710798.svg" alt="this关键字的练习"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Account</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> balance;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Account</span><span class="params">(<span class="type">double</span> balance)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.balance = balance;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getBalance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> balance;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deposit</span><span class="params">(<span class="type">double</span> amt)</span>&#123;</span><br><span class="line">        balance += amt;</span><br><span class="line">        System.out.println(<span class="string">&quot;存款成功:&quot;</span> + amt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">withdraw</span><span class="params">(<span class="type">double</span> amt)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(balance &lt; amt)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;取款失败！&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        balance -= amt;</span><br><span class="line">        System.out.println(<span class="string">&quot;取款成功：&quot;</span> + amt);</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Customer</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="keyword">private</span> Account account;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Customer</span><span class="params">(String f,String l)</span>&#123;</span><br><span class="line">        firstName = f;</span><br><span class="line">        lastName = l;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getFirstName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> firstName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getLastName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> lastName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Account <span class="title function_">getAccount</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> account;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAccount</span><span class="params">(Account acct)</span>&#123;</span><br><span class="line">        account  = acct;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">bank</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    <span class="keyword">private</span> Customer[] customers;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> numberOfCustomer;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Bank</span><span class="params">()</span>&#123;</span><br><span class="line">        customers = <span class="keyword">new</span> <span class="title class_">Customer</span>[<span class="number">10</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addCustomer</span><span class="params">(String f,String l)</span>&#123;</span><br><span class="line">        Arrays.fill(customers,<span class="keyword">new</span> <span class="title class_">Customer</span>(f,l));</span><br><span class="line">        numberOfCustomer++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNumOfCustomers</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> numberOfCustomer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Customer <span class="title function_">getCustomer</span><span class="params">(<span class="type">int</span> index)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index &gt;=<span class="number">0</span> &amp;&amp; index &lt; numberOfCustomer)&#123;</span><br><span class="line">            <span class="keyword">return</span> customers[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BankTest</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Bank</span> <span class="variable">bank</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bank</span>();</span><br><span class="line">        bank.addCustomer(<span class="string">&quot;Jame&quot;</span>,<span class="string">&quot;Smith&quot;</span>);</span><br><span class="line">        bank.getCustomer(numberOfCustomer - <span class="number">1</span>).setAccount(<span class="keyword">new</span> <span class="title class_">Account</span>(<span class="number">2000</span>));</span><br><span class="line">        bank.getCustomer(numberOfCustomer - <span class="number">1</span>).getAccount().deposit(<span class="number">100</span>);</span><br><span class="line">        bank.getCustomer(numberOfCustomer - <span class="number">1</span>).getAccount().withdraw(<span class="number">200</span>);</span><br><span class="line">        bank.getCustomer(numberOfCustomer - <span class="number">1</span>).getAccount().withdraw(<span class="number">3000</span>);</span><br><span class="line">        <span class="type">double</span> <span class="variable">balance</span> <span class="operator">=</span> bank.getCustomer(numberOfCustomer - <span class="number">1</span>).getAccount().getBalance()</span><br><span class="line">        System.out.println(<span class="string">&quot;客户&quot;</span> + bank.getCustomer(numberOfCustomer - <span class="number">1</span>).getFirstName() + bank.getCustomer(numberOfCustomer - <span class="number">1</span>).getLastName() + <span class="string">&quot;的余额是：&quot;</span> + balance);</span><br><span class="line">        </span><br><span class="line">        bank.addCustomer(<span class="string">&quot;Fall&quot;</span>,<span class="string">&quot;Gays&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;银行客户的人数是：&quot;</span> + bank.getNumOfCustomers());  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="package关键字"><a href="#package关键字" class="headerlink" title="package关键字"></a>package关键字</h2><p>为了更好的实现项目中类的管理，java提出了包的概念。package语句作为java源文件的<font color  = red>第一条语句</font>，指明该文件中定义的<font color = red>类或接口</font>所在的包(若缺省该语句，则指定为无名包)。</p>
+<ul>
+<li>包对应于文件系统的目录，package语句中，用 “.” 来指明包(目录)的层次；</li>
+<li>同一个包下，不能命名同名的接口、类；不同的包下，可以命名同名的接口、类；</li>
+<li>包通常用<font color  = red>小写单词标识(xxxyyyzzz)</font>，通常使用所在公司域名的倒置：com.atguigu.xxx。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//package的语法格式：package 顶层包名.子包名;</span></span><br><span class="line"><span class="comment">//举例：pack1\pack2\PackageTest.java</span></span><br><span class="line"><span class="keyword">package</span> pack1.pack2;    <span class="comment">//指定类PackageTest属于包pack1.pack2</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PackageTest</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">display</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;in method display()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包的作用：<br>📌 包帮助管理大型软件系统：将功能相近的类划分到同一个包中。比如：<font color  = blue>MVC的设计模式</font>；<br>📌 包可以包含类和子包，划分项目层次，便于管理。解决类命名冲突的问题，控制访问权限。<br>例：某航运软件系统包括：一组域对象、GUI和reports子系统</p>
+<p><img data-src="https://img.susin3x.cn/images/202207082135665.svg" alt="航运软件系统"></p>
+<h3 id="MVC设计模式"><a href="#MVC设计模式" class="headerlink" title="MVC设计模式"></a>MVC设计模式</h3><p>MVC是常用的设计模式之一，将整个程序分为三个层次：<font color = blue>视图模型层(model)，控制器层(controller)，与数据模型层(view)</font>。这种将程序输入输出、数据处理，以及数据的展示分离开来的设计模式使程序结构变的灵活而且清晰，同时也描述了程序各个对象间的通信方式，降低了程序的耦合性。</p>
+<table>
+<thead>
+<tr>
+<th align="center"><font color = blue>模型层 model 主要处理数据</font></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&gt;数据对象封装 model.bean/domain<br/>&gt;数据库操作类 model.dao<br/>&gt;数据库 model.db</td>
+</tr>
+<tr>
+<td align="center"><font color = blue><strong>控制层 controller 处理业务逻辑</strong></font></td>
+</tr>
+<tr>
+<td align="center">&gt;应用界面相关 controller.activity<br/>&gt;存放fragment  controller.fragment<br/>&gt;显示列表的适配器 controller.adapter<br/>&gt;服务相关的 controller.service<br/>&gt;抽取的基类 controller.base</td>
+</tr>
+<tr>
+<td align="center"><font color = blue><strong>视图层 view 显示数据</strong></font></td>
+</tr>
+<tr>
+<td align="center">&gt;相关工具类 view.utils<br/>&gt;自定义view  view.ui</td>
+</tr>
+</tbody></table>
+<p><img data-src="https://img.susin3x.cn/images/202207072257019.png" alt="MVC设计模式"></p>
+<table>
+<thead>
+<tr>
+<th align="left">JDK中主要的包介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><font color = blue>1. java.lang</font> ——包含一些Java语言的核心类，如String、Math、Integer、 System和Thread，提供常用功能。</td>
+</tr>
+<tr>
+<td align="left"><font color= blue>2. java.net</font> ——包含执行与网络相关的操作的类和接口。</td>
+</tr>
+<tr>
+<td align="left"><font color = blue>3. java.io</font> ——包含能提供多种输入/输出功能的类。</td>
+</tr>
+<tr>
+<td align="left"><font color = blue>4. java.util</font> ——包含一些实用工具类，如定义系统特性、接口的集合框架类、使用与日期日历相关的函数。</td>
+</tr>
+<tr>
+<td align="left"><font color = blue>5. java.text</font> ——包含了一些java格式化相关的类。</td>
+</tr>
+<tr>
+<td align="left"><font color = blue>6. java.sql</font> ——包含了java进行JDBC数据库编程的相关类/接口。</td>
+</tr>
+<tr>
+<td align="left"><font color= blue>7. java.awt</font> ——包含了构成抽象窗口工具集（abstract window toolkits）的多个类，<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些类被用来构建和管理应用程序的图形用户界面(GUI)。</td>
+</tr>
+</tbody></table>
+<h2 id="import关键字"><a href="#import关键字" class="headerlink" title="import关键字"></a>import关键字</h2><p>为使用定义在不同包中的Java类，需用import语句来引入指定包层次下所需要的类或<font color  = red>全部类(.*)</font>，import语句会告诉编译器到哪里去寻找类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//import的语法格式：import  包名.类名;</span></span><br><span class="line"><span class="comment">//举例：import pack1.pack2.*;表示引入pack1.pack2包中的所有结构</span></span><br><span class="line"><span class="keyword">import</span>  pack1.pack2.Test;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PackTest</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        <span class="type">Test</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Test</span>();   <span class="comment">//Test类在pack1.pack2包中定义</span></span><br><span class="line">        t.display();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>📌 在源文件中显式的使用import结构导入指定包下的类或接口；<br>📌 声明在包的声明和类的声明之间；<br>📌 如果需要导入多个类或接口，那么就并列显式多个import语句即可；<br>📌 举例：可以使用java.util.*的方式，一次性导入util包下所有的类或接口；<br>📌 如果导入的类或接口是java.lang包下的，或者是<font color = red>当前包下的，则可以省略此import语句</font>；<br>📌 如果在代码中使用不同包下的同名的类。那么就需要使用类的<font color = red>全类名</font>的方式指明调用的是哪个类；<br>📌 如果已经导入java.a包下的类。那么如果需要使用a包的子包下的类的话，仍然需要导入；<br>📌 import static：导入指定类或接口中的静态结构（属性或方法）。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012039373.png" alt="susin3x 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="https://img.susin3x.cn/images/202203012032992.png" alt="susin3x 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>susin3x
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://susin3x.cn/posts/d0059352.html" title="javaSE基础学习day09">https://susin3x.cn/posts/d0059352.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/javaSE/" rel="tag"><i class="fa fa-tag"></i> javaSE</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"><i class="fa fa-tag"></i> 面向对象</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/a702a3c4.html" rel="prev" title="javaSE基础学习day08">
+      <i class="fa fa-chevron-left"></i> javaSE基础学习day08
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/b0c21ab7.html" rel="next" title="javaSE基础学习day10">
+      javaSE基础学习day10 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%89%B9%E5%BE%81%E4%B9%8B%E4%B8%80%EF%BC%9A%E5%B0%81%E8%A3%85%E4%B8%8E%E9%9A%90%E8%97%8F"><span class="nav-number">1.</span> <span class="nav-text">面向对象的特征之一：封装与隐藏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">权限修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A01"><span class="nav-number">1.2.</span> <span class="nav-text">练习1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E4%B9%8B%E4%B8%89%EF%BC%9A%E6%9E%84%E9%80%A0%E5%99%A8%EF%BC%88%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">类的成员之三：构造器（构造方法）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A02"><span class="nav-number">2.1.</span> <span class="nav-text">练习2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E8%B5%8B%E5%80%BC%E8%BF%87%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">属性赋值过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaBean"><span class="nav-number">2.3.</span> <span class="nav-text">JavaBean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML%E7%B1%BB%E5%9B%BE"><span class="nav-number">2.4.</span> <span class="nav-text">UML类图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">this关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A03"><span class="nav-number">3.1.</span> <span class="nav-text">练习3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#package%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">4.</span> <span class="nav-text">package关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">MVC设计模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">5.</span> <span class="nav-text">import关键字</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="susin3x"
+      src="https://img.susin3x.cn/images/202202281750409.png">
+  <p class="site-author-name" itemprop="name">susin3x</p>
+  <div class="site-description" itemprop="description">念念不忘必有回响</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1c2luM3g=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;susin3x"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJnVpbj0yMzg2MDQyMTU1JnNpdGU9cXEmbWVudT15ZXM=" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;2386042155&amp;site&#x3D;qq&amp;menu&#x3D;yes"><i class="fab fa-qq fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmFzaW4zeEAxNjMuY29t" title="E-Mail → mailto:asin3x@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">susin3x</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">122k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">湘ICP备2022004776号-1 </span>
+      <span class="post-meta-divider">|</span>
+      <img src="https://img.susin3x.cn/images/202203301541843.png" style="display: inline-block;"><span class="exturl" data-url="aHR0cDovL3d3dy5iZWlhbi5nb3YuY24vcG9ydGFsL3JlZ2lzdGVyU3lzdGVtSW5mbz9yZWNvcmRjb2RlPTQzMDMyMTAyMDAwMjQx">湘公网安备 43032102000241号 </span>
+  </div>
+
+        
+<div class="busuanzi-count">
+
+  <!--
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+
+  <script async src="https://img.susin3x.cn/js/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/1.0.1/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://susin3x.cn/posts/d0059352.html',]
+      });
+      });
+  </script>
+
+</body>
+</html>
