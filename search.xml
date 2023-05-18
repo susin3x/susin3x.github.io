@@ -254,7 +254,7 @@
   <entry>
     <title>小米笔记本Pro15.6蓝屏——重装系统，拆机清灰加固态</title>
     <url>/posts/fdfe12a3.html</url>
-    <content><![CDATA[<p>我的蓝屏摸索解决过程如下，下次就可以跟帖解决了 ╮(╯_╰)╭ ，我18年双十一买的这台小米笔记本，买回来之后没有清过灰，这次拆机顺便还加了一条固态硬盘，记录一下，免得下次忘记咋弄了。。</p>
+    <content><![CDATA[<p>我的蓝屏摸索解决过程如下，下次就可以跟帖解决了 ╮(╯_╰)╭ ，18年双十一买的这台小米笔记本，买回来之后没有清过灰，这次拆机顺便还加了一条固态硬盘，记录一下，免得下次忘记咋弄了。。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181048710.jpg"></p>
 <p>从<span class="exturl" data-url="aHR0cDovL3d3dy53aW4xMHpqLm5ldC93aW4xMGppYW9jaGVuZy8xMjkyOC5odG1s">蓝屏代码大全<i class="fa fa-external-link-alt"></i></span>找到上图的蓝屏代码，写得很模糊，也不知道具体是哪里出问题了。</p>
 <div class="note info simple">
@@ -265,20 +265,20 @@
 <h2 id="重装系统"><a href="#重装系统" class="headerlink" title="重装系统"></a>重装系统</h2><p>重装系统有两个蛮有用的视频：</p>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMVNLNDExbjdYaS8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smdmRfc291cmNlPTViNWZkNTFlYzljN2YyYTcwZWYxNDhmYTE2OTljMDYx">【装机教程】三种方法，手把手教你重装系统！_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span></p>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMURKNDExRDc5eS8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smdmRfc291cmNlPTViNWZkNTFlYzljN2YyYTcwZWYxNDhmYTE2OTljMDYx">【装机教程】超详细WIN10系统安装教程，官方ISO直装与PE两种方法教程_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span></p>
-<h3 id="方法一-系统U盘安装"><a href="#方法一-系统U盘安装" class="headerlink" title="方法一(系统U盘安装)"></a>方法一(系统U盘安装)</h3><p>先去<span class="exturl" data-url="aHR0cHM6Ly9tc2RuLml0ZWxseW91LmNuLw==">MSDN<i class="fa fa-external-link-alt"></i></span>下载win10 1909版本的系统镜像，也可以去<span class="exturl" data-url="aHR0cHM6Ly9uZXh0Lml0ZWxseW91LmNuL09yaWdpbmFsL0luZGV4">MSDN新站<i class="fa fa-external-link-alt"></i></span>更高版本的win10，我准备下个专业版，选商业版和零售版都OK，复制ed2k链接去迅雷下载就行了。</p>
+<h3 id="方法一-系统U盘安装"><a href="#方法一-系统U盘安装" class="headerlink" title="方法一(系统U盘安装)"></a>方法一(系统U盘安装)</h3><p>先去<span class="exturl" data-url="aHR0cHM6Ly9tc2RuLml0ZWxseW91LmNuLw==">MSDN<i class="fa fa-external-link-alt"></i></span>下载win10 1909版本的系统镜像，也可以去<span class="exturl" data-url="aHR0cHM6Ly9uZXh0Lml0ZWxseW91LmNuL09yaWdpbmFsL0luZGV4">MSDN新站<i class="fa fa-external-link-alt"></i></span>下载更高版本的系统镜像，我准备下个专业版，选商业版和零售版都OK，复制ed2k链接去迅雷下载就行了。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181552366.png"></p>
-<p>下载<span class="exturl" data-url="aHR0cDovL3J1ZnVzLmllL3poLw==">rufus<i class="fa fa-external-link-alt"></i></span>，这个下载链接我找了好久，实在不好找啊，下载后即开即用，无需安装。</p>
+<p>下载<span class="exturl" data-url="aHR0cDovL3J1ZnVzLmllL3poLw==">rufus<i class="fa fa-external-link-alt"></i></span>，这个下载链接我找了好久，实在是不好找啊，下载后即开即用，无需安装。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181607846.png"></p>
 <p>选择刚才下载的系统镜像，其他选项默认即可，点击开始，将系统镜像刻录到U盘。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181617641.png"></p>
 <p>刻录完成后，<font color = red><strong>重启电脑</strong></font>，在开机前一直连按F12(小米笔记本开机快速启动项的快捷键是F12)。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181730362.jpg"></p>
-<p>选择下面的<font color = red><strong>EFI USB Device</strong></font>启动项后，回车就进入系统安装的界面了。如何没有什么重要数据或者数据已经备份后，分区的时候最好<font color  = red><strong>删除</strong></font>所有分区，因为重做系统还会创建新的分区，然后再重新分区。</p>
-<h3 id="方法二-PE安装"><a href="#方法二-PE安装" class="headerlink" title="方法二(PE安装)"></a>方法二(PE安装)</h3><p>下载<span class="exturl" data-url="aHR0cHM6Ly93d3cud2VwZS5jb20uY24vZG93bmxvYWQuaHRtbA==">微PE<i class="fa fa-external-link-alt"></i></span>后，双击微PE安装程序exe，在右下角选择安装到U盘。</p>
+<p>选择下面的<font color = red><strong>EFI USB Device</strong></font>启动项后，回车就进入系统安装的界面了。<font color = red>先提前将重要数据备份</font>，分区的时候最好先<font color  = red><strong>删除</strong></font>所有分区，因为重做系统还会创建新的分区，然后再重新分区。</p>
+<h3 id="方法二-PE安装"><a href="#方法二-PE安装" class="headerlink" title="方法二(PE安装)"></a>方法二(PE安装)</h3><p>下载<span class="exturl" data-url="aHR0cHM6Ly93d3cud2VwZS5jb20uY24vZG93bmxvYWQuaHRtbA==">微PE<i class="fa fa-external-link-alt"></i></span>后，双击微PE安装程序，在右下角选择安装到U盘。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181745927.png"></p>
 <p>格式改为NTFS，给U盘重命名为微PE工具箱，勾选“包含DOS工具箱”和“个性化盘符图标”。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181745893.png"></p>
-<p>将PE安装进U盘后，打开名为“微PE工具箱”的U盘，将下载好的系统镜像复制到U盘。</p>
+<p>将PE安装进U盘后，打开名为“微PE工具箱”的U盘，将下载好的系统镜像<strong>复制</strong>到U盘。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181838466.png"></p>
 <p>复制完成后，<font color = red><strong>重启电脑</strong></font>，在开机前一直连按F12(小米笔记本开机快速启动项的快捷键是F12)。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305181730362.jpg"></p>
@@ -292,9 +292,9 @@
 <p><img data-src="https://img.susin3x.cn//images/202305182010668.png"></p>
 <p>安装好驱动安装包中所有的驱动即可。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305182015622.png"></p>
-<h2 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h2><p>重装系统并且安装好驱动后，依然出现蓝屏现象，蓝屏重启可能是CPU，内存或者硬盘出现问题。</p>
+<h2 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h2><p>在重装系统并且安装好驱动之后，依然出现蓝屏现象，蓝屏重启可能是CPU，内存或者硬盘出现问题。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305182037024.jpg"></p>
-<p>用AIDA64检测硬件故障，打开AIDA64，点击上方的工具，选择“系统稳定性测试”，选择所要测试的硬件，点击“Start”开始进行压力测试。如果电脑硬件有故障的话，是没有办法通过压力测试的，必然就会报错，报错会在状态栏弹出一个<font color = red>红条</font>的错误提示，同时压力测试会被中断。如何一时半会测不出来，跑个5到10分钟左右就可以了，点击“Stop”停止压力测试。不要进行太长时间的压力测试，毕竟满负荷的工作还是很伤电脑的。通过AIDA64可以粗略的测一下硬件是否有故障。</p>
+<p>用AIDA64检测硬件故障，打开AIDA64，点击上方的“工具”，选择“系统稳定性测试”，选择所要测试的硬件，点击“Start”开始进行压力测试。如果电脑硬件有故障的话，是没有办法通过压力测试的，必然就会报错，报错会在状态栏弹出一个<font color = red>红条</font>的错误提示，同时压力测试会被中断。如果一时半会测不出来，跑个5到10分钟左右就可以了，点击“Stop”停止压力测试。不要进行太长时间的压力测试，毕竟满负荷的工作还是很伤电脑的。通过AIDA64可以粗略的测一下硬件是否有故障。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305182037793.png"></p>
 <p><img data-src="https://img.susin3x.cn//images/202305182048835.png"></p>
 <p><img data-src="https://img.susin3x.cn//images/202305182049524.png"></p>
@@ -315,7 +315,7 @@
 <p><img data-src="https://img.susin3x.cn//images/202305182112650.png"></p>
 <p>从测评结果来看，利民TF7和信越7921都挺不错的。但信越7921是分装售卖的，很难买到真货，而且对新手小白不友好，很难涂抹均匀。我还是选择了利民TF8（京东自营1.2g花了￥24.9😄）。</p>
 <p><strong>固态硬盘：</strong>三星980 | NVME | PCLE3.0 | 500G（某东￥269）</p>
-<p>固态硬盘选择推荐如下，B站和知乎还有很多视频和帖子关于固态硬盘选择的推荐，可以多看看之后再选购。本来我想着支持国产的致态TiPlus5000(512G的￥259)，但固态大厂三星的980和TiPlus5000差不多价格，果断心动了~，至于0E事件，时不时监控一下固态的状况，应该就没啥大问题吧。</p>
+<p>固态硬盘选择推荐如下，B站和知乎有很多视频和帖子是关于固态硬盘推荐的，可以多看看之后再选购。本来我想着支持国产的致态TiPlus5000(512G的￥259)，但固态大厂三星的980和TiPlus5000差不多价格，果断心动了~，至于0E事件，时不时监控一下固态硬盘的状况，应该就没啥大问题吧。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305182132471.jpg"></p>
 <h3 id="清灰"><a href="#清灰" class="headerlink" title="清灰"></a>清灰</h3><p>首先拆后盖螺丝，然后用三角翘片和硬卡片撬开后盖。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305182144949.png"></p>
@@ -330,10 +330,11 @@
 <p>过段时间看看还有没有兴致，买个工具把滑丝的螺丝拧下来，等后续。。</p>
 <h3 id="加装固态硬盘"><a href="#加装固态硬盘" class="headerlink" title="加装固态硬盘"></a>加装固态硬盘</h3><p>我把原装的固态硬盘硬盘插到了扩展槽，三星980插在了原装槽。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305182210980.jpg"></p>
-<p>装好固态硬盘之后，右键“此电脑”，选择“管理”，点击“磁盘管理”，右键新磁盘，选择“新建简单卷”，点击下一步就行了。500G我分了两个区，D盘用来放各种软件，E盘用来放各种文件。</p>
+<p>装好固态硬盘之后，右键“此电脑”，选择“管理”，点击“磁盘管理”，右键磁盘1，选择“新建简单卷”，点击下一步就行了。500G我分了两个区，D盘用来放各种软件，E盘用来放各种文件。</p>
 <p><img data-src="https://img.susin3x.cn//images/202305182218115.png"></p>
 <p><img data-src="https://img.susin3x.cn//images/202305182222892.jpg" alt="原固态硬盘测速"></p>
 <p><img data-src="https://img.susin3x.cn//images/202305182222692.jpg" alt="三星980固态硬盘测速"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从5月12日拆机清灰，到现在为止，还没有出现蓝屏现象Ꮚ°ꈊ°;Ꮚ，高兴啊高兴，下次再涂硅脂吧~</p>
 ]]></content>
       <categories>
         <category>学习分享</category>
